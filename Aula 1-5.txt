@@ -1,0 +1,28 @@
+Aqui nós vamos focar em organizar o código.
+O React cria muitos arquivos e linhas de código que não vamos usar.
+
+Todo arquivo que tiver "test" no nome provavelmente é um teste automatizado.
+
+
+Deletamos alguns arquivos.
+No index.js:
+
+
+[O que o React faz aqui, ele faz o import do React DOM e cria o root onde vai ficar o componente
+principal da aplicação, e o que passamos como argumento para esse createRoot é algo que estamos
+acostumados, um seletor document.getElementByid, então alguém procurou um elemento com o id root
+em algum lugar e vamos descobrir daqui a pouco onde é.
+
+Depois de descobrirmos onde ele fez isso, ele renderizou o nosso App. Esse componente nada mais é 
+o que o nosso "App.js". Então podemos falar que esse "index.js" é o que chamamos de bootstrap,
+o ponto de entrada. Esse é o primeiro arquivo que vai ser executado e que vai renderizar
+o primeiro componente e iniciar um movimento em cascata.
+
+Em seguida ele chama o método render que é um métodos do React que vai renderizar lá dentro.
+
+O ReactStrictMode é para nos ajudar enquanto Front-End. Ele em produção não fará nada, mas em
+ambiente de desenvolvimento, o fato dele estar aqui vai nos ajudar a prevenir erros e ter
+mensagens de erros mais amigáveis.
+
+Já o reportWebVitals() é algo mais relacionado à analítica e a parte de performance e nós não
+vamos olhar para isos nesse momento, então vamos apagar também.]
