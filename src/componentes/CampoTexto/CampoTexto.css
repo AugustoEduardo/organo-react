@@ -1,0 +1,24 @@
+.campo-texto {
+    margin: 24px 0;
+}
+
+.campo-texto label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 24px;
+}
+
+.campo-texto input {
+    background-color: #FFFFFF;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    /*se pedirmos para pegar 100% da tela quem vai dizer o tamanho é onde colocarmos ele*/
+    border: none;
+    font-size: 24px;
+    padding: 24px;
+    box-sizing: border-box;
+    
+    /*Ele está vazando para fora, ele tem 100% da tela, mas ele está indo além porque ele não está
+    considerando o padding com os 100%. Queremos que ele tenha o tamanho de 100% levando em
+    consideração tudo. Então, temos que fazer o box-sizing como border-box.*/
+}
