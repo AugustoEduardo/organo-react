@@ -1,0 +1,22 @@
+.formulario {
+    display: flex;
+    justify-content: center;
+    margin: 80px 0;
+    /* O Figma mostra que há um espaçamento de 80 pixels entre o formulario e o banner */
+}
+
+.formulario form {
+    max-width: 80%;
+
+    background-color: #F2F2F2;
+    border-radius: 20px;
+    box-shadow: 8px 8px 20px rgba(0,0,0, 0.08);
+    /* Números arrendondados */
+
+    padding: 32px 64px;
+    /* Não sei de onde saíram esses valores, os que eu encontrei foram bem diferentes */
+}
+
+.formulario h2 {
+    padding-bottom: 42px;
+}
