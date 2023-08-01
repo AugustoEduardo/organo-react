@@ -1,0 +1,83 @@
+(O Aula 1-6.txt teve adições que não foram adicionadas ao git anterior)
+
+O que eu quero agora é automatizar o index.js do CampoTexto.
+Veja que no App.js temos um componente react <CampoTexto />. Eu quero
+escrever label="parametroDaLabel" e no index fazer a arrow function
+receber esses parâmetros e disponibilizar na página. Como um Template String.
+
+<CampoTexto label="Nome"/>
+<CampoTexto label="Texto/>
+<CampoTexto label="Imagem"/>
+
+[Componentes são funções, sendo assim, conseguimos passar parâmetros para as 
+funções.
+A partir do momento que passamos uma propriedade dessas, podemos pegar imediatamente
+CampoTexto(). Isso porque o React nos entrega implicitamente um parâmetro chamado props,
+que são as propriedades que esse componente recebeu.]
+
+Faremos um teste para entender como funciona. Botamos no index.js
+```
+const CampoTexto = (props) => {
+    console.log(props)
+}
+```
+
+No Console do navegador, vemos que as labels são exibidas duas vezes. Porque no index.js
+da pasta src, temos o ReactStrictMode, que nos ajuda a dizer se tem algo errado. Para
+conseguir validar isso ele faz renderizar adicionais do componente.
+
+
+
+[Em "App.js" colocamos um label de Nome, Cargo e Imagem e foi isso o que
+recebemos nas props: um objeto JavaScript com uma propriedade label que vem com o valor
+que foi passado.
+
+Ou seja, conseguimos passar o parâmetro para o componente. O que precisamos fazer agora
+é uma mistura de um valor de objeto JavaScript e imprimir ele no HTML.]
+
+
+Apague o console.log do index.js (da pasta CampoTexto) e escreva:
+
+```
+const CampoTexto = (props) => {
+    return (
+        <div className="campo-texto">
+            <label>
+                {props.label}
+            </label>
+            <input placeholder />
+        </div>
+    )
+}
+```
+
+Semelhante ao Template Strings, quero que o parâmetro "props" receba o valor da
+variável "label" que aparece no App.js e pra isso colocamos entre chaves {}.
+
+Podemos fazer o mesmo para o placeholder. Escrevemos os diferentes placeholders no
+App.js e no CampoTexto fazemos:
+<input placeholder={props.placeholder} />.
+
+Repare que o props é só o nome do parâmetro. Podemos colocar qualquer nome, mas
+deixamos como props para deixar mais claro que vem de "propriedades".
+
+
+
+E se gosta tanto de Template Strings, podemos fazer de outra maneira:
+
+```
+const CampoTexto = (props) => {
+    const placeholderModificada = `${props.placeholder}...`
+    return (
+        <div className="campo-texto">
+            <label>
+                {props.label}
+            </label>
+            <input placeholder={placeholderModificada} />
+        </div>
+    )
+}
+```
+
+Ou então, sem usar a nova constante:
+<input placeholder=`${props.placeholder}` />
