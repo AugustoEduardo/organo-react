@@ -32,3 +32,14 @@ Note that the development build is not optimized.
 To create a production build, use npm run build.
 
 webpack compiled successfully
+
+
+
+
+Não fique assustado no início. O React tem estilos de código que misturam HTML com Javascript,
+por isso temos uma function e algumas tags ao inicializar o App.js.
+
+["Em vez de criarmos os elementos e irmos fazendo document.querySelector, document.createElement
+para manipularmos o DOM, vamos utilizar o React e uma dessas formas de fazermos isso é
+criar componentes. Então, o que vocês veem aqui em function App() nada mais é do que uma forma
+de escrever um componente React."]

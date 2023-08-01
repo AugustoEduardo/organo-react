@@ -1,0 +1,89 @@
+Qualquer alteração salva nos arquivos já atualiza automaticamente a página.
+É assim que funciona o React, como se estivéssemos usando um arquivo .js com a
+extensão Live Server aberta.
+
+Você provavelmente já viu em outras aulas, mas a gente costuma separar algumas
+funções, algumas partes do funcionamento da página em arquivos e pastas diferentes.
+Fazemos isso para o caso de querermos reaproveitar alguma propriedade para um mesmo
+objeto no futuro.
+
+Dentro da pasta src, crio uma pasta chamada "componentes", e dentro dessa nova pasta
+criarei outra pasta chamada "Banner". Nesta pasta Banner, crio um arquivo "Banner.js".
+Depois, dentro da pasta "public", crio a pasta "imagens", que é onde colocarei o banner.png
+(basta arrastar o arquivo para a pasta no VSCode ou copie e cole na pasta pelo windows explorer)
+
+
+
+[O Create React App gerou "node_modules", gerou "Public". Ele também gerou o "src" e nós criamos
+"componentes", "Banner" e um "Banner.js", que eu imagino que não seja obrigatório, mas é o
+caminho normalmente tomado nesses casos.
+
+"A ideia do "public" é que quando criarmos e formos publicar em algum lugar, tudo que chamamos de
+"imagem estáticas" será disponibilizado colocando dentro da pasta "public".
+
+Repare que a pasta "public" é a raíz, então ela é o / e a partir dela queremos acessar
+a pasta de imagens e o banner.png.]
+
+
+
+
+No Banner.js, escreva:
+```
+function Banner () {
+    return (
+        <img src="/imagens/banner.png" alt="Banner do cabeçalho"/>
+    )
+}
+
+export default Banner
+```
+
+
+
+Essa tag HTML dentro de um return é o que chamamos de JSX. Parece HTML, mas não é.
+
+
+[O que o React vai fazer por debaixo nos panos é entender o que é isso e fazer o apende no DOM.
+É como se no modo clássico nós fizessos um document.createElement e criássemos o img e definíssemos
+o atributo src e o atributo alt. Então, o JSX é como o React lê isso e transforma em elementos no DOM.
+Ele parece HTML, mas não é, ele é JSX. Entraremos mais a fundo nisso conforme formos evoluindo.
+
+Agora desmistificamos isso! O conceito de HTML são essas tags, certo? Temos h1, p, o próprio img...
+Temos muitas tags HTML e a idea do componente é seguir mais ou menos esse fluxo.
+Então, o que poderíamos fazer aqui é, como o nome do nosso componente é Banner, poderíamos abrir
+uma tag com esse nome <Banner/>.]
+
+
+No App.js, comece a digitar <Banner /> antes do <header>. Se não aparecer uma sugestão do VSCode,
+digite nas primeiras linhas: import Banner from './componentes/Banner/Banner';
+
+Agora, na pasta Banner, crie um arquivo Banner.css com as seguintes propriedades:
+```
+.banner {
+    background-color: #6278F7;
+    align-items: center;
+}
+
+.banner img {
+    max-width: 100%;
+}
+```
+
+Daí, volte ao Banner.js e acrescente no cabeçalho import "./Banner.css".
+Acrescente também uma tag <header> ao redor da tag <img> e coloque uma classe para a header
+com o nome banner para combinar com as propriedades que modificamos no CSS. Lembre-se que no
+React, atribuímos nomes às classes como "className" e não "class" como era no CSS.
+
+
+
+(Quando apertamos F12 na página, temos essa mensagem no body:)
+<!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
