@@ -1,0 +1,52 @@
+O quarto campo de texto é uma lista suspensa, que conterá itens pré-definidos e que serão
+selecionados ao clicar na seta ao lado. É aqui que vamos colocar os times (se você estiver
+criando um projeto pessoal, é aqui que você pode, por exemplo, montar os integrantes do
+seu time de Super Smash Bros. Ultimate listando as diversas equipes: Twilight Squad,
+Space Armada, UF, Button Corp, Aliança Delfino, etc).
+
+Veja que no Figma cada time tem uma cor de fundo e uma cor de efeito para cada card, então
+precisamos levar isso em consideração. Essa lista tem que estar preparada para receber todos
+os valores, tem que estar em algum lugar e não pode simplesmente colocar tudo no HTML.
+
+
+Criado a pasta para a ListaSuspensa e seus arquivos, o return terá uma div com o props.label
+como feito anteriormente.
+
+
+
+[Precisamos de alguma forma interar em cima dessa lista, ou seja, de alguma maneira precisamos
+receber uma props.itens e para cada item dessa lista temos que renderizar o options.
+
+Precisamos de um método que faça uma iteração dessa lista e retorno uma lista diferentes.
+Queremos uma lista de strings e queremos que depois dessa iteração, tenha uma lista de
+elementos do JSX. Para fazer isso com o React, vamos utilizar o map.
+
+Todo o array [] JavaScript pode fazer esse métodos .map. Para cada item da lista ele vai
+retornar um array novo manipulado. É como se tívessemos uma lista de nomes e vamos transformá-la
+em uma lista de options: ele vai percorrer, mas vai retornar algo diferente.]
+
+
+-----Diferença entre forEach e map------
+
+* O forEach percorre uma lista e faz algo, sem devolver algo.
+* O map percorre, faz algo e devolve uma nova lista transformada.
+
+
+[Esse map vai sempre aparecer quando tivermos uma iteração em cima de uma lista renderizando na tela.]
+
+
+Para cada item da lista, quero retornar uma option.
+E dentro de option, quero imprimir o valor desse item.
+
+
+
+Por que eu tive que colocar uma chave (key) na tag option?
+
+[O React precisa da key para controlar a renderização e saber quando ele precisa atualizar
+um item ou não. Em nosso caso, podemos usar o próprio nome do time como chave.
+
+
+O map nos dá o item, o valor, e o index, a posição dele no array. Poderíamos pegar a posição do
+item no array, que é única e colocar como chave e isso funcionaria.
+Entretanto, se por algum motivos trabalharmos em remover algum item dessa lista, o React pode se
+perder e não analizar o índice anterior porque a chave é a mesma.]
