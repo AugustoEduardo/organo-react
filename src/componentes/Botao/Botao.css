@@ -1,0 +1,20 @@
+.botao {
+    /* Propriedades do botao */
+    border-radius: 10px;
+    background-color: #6278F7;
+
+    /* Propriedades do texto */
+    font-weight: 700;
+    font-size: 20px;
+    padding: 28px;
+    border: none;
+    color: #FFFFFF;
+
+    /* Propriedades que temos que descobrir sozinhos */
+    cursor: pointer;
+    margin: 40px 0 8px 0;
+}
+
+.botao:hover {
+    color: #95FFD4;
+}
