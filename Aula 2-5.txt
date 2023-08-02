@@ -1,0 +1,15 @@
+Deixamos o Botão da forma como estava na seção "Avançado" do Aula 2-4.txt.
+
+Para evitar que o botão recarregue a página, você já deve saber: cria uma função com um
+parâmetro e este parâmetro terá um preventDefault().
+
+
+No Formulario, dentro da tag form, usamos um "onSubmit={função}". O que ela vai fazer é,
+quando clicarmos no botão (que faz um Submit, conforme visto em tópicos passados), ele chamará
+a função. Ela vai ser uma arrow function com o parâmetro evento e um evento.preventDefault().
+Além disso, vamos pedir para escrever uma mensagem no console para indicar que deu certo.
+
+
+Agora, se a gente quiser que os campos de preenchimento sejam obrigatórios, podemos colocar dentro de algumas
+tags CampoTexto e da ListaSuspensa um "obrigatorio={true}". Daí, vamos aos indexes dessas pastas e
+acrescentar um required={props.obrigatorio} no <input> e no <select>. As imagens queremos deixar opcionais.
