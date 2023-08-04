@@ -1,0 +1,58 @@
+[A ideia é partirmos para a parte dos times. Então, já pensando na forma React, nós precisamos ter
+um componente que nos possibilite reaproveitá-lo e que receba um time e os colaboradores e, de alguma forma,
+ele se reorganiza para montar na tela.
+
+Vamos começar por esse componente que precisa receber um título, uma cor primária e uma cor secundária,
+sedo essa última uma variante mais clara da primeira.]
+
+
+Criando a pasta Time, criaremos dentro dela o Time.css e o index.js, este último seguindo o padrão dos outros
+indexes de importar o arquivo .css da mesma pasta, criar uma arrow function e exportá-la.
+
+No Figma, vemos que a parte dos Times se repete. Só mudam os títulos e as cores. O que a gente pode fazer no
+nosso código é criar um padrão que se repete diversas vezes e que iremos alterá-los individualmente mais pra
+frente.
+Pensando na estrutura HTML, resolveremos da seguinte maneira: na função criada, damos um return, que terá
+uma seção correspondente a cada time (section) e o título (h3). Para os nomes dos times ficarem dinâmicos,
+usamos o props, que receberá o nome. Lembrando que para o props ser válido, precisamos botá-lo como parâmetro
+da função.
+
+
+import "./Time.css"
+
+const Time = (props) => {
+    return (
+        <section>
+            <h3>{props.nome}</h3>
+        </section>
+    )
+}
+
+export default Time
+
+
+Para fazer isso aparecer na nossa página, temos que ir ao App.js e colocar a tag Time. Lembra que a gente falou
+que iríamos criar um padrão que se repetia? Pois bem, coloque a tag umas duas ou três vezes, só para testar.
+Cada uma delas deve ter um nome diferente (baseie-se nos nomes do Figma, ou melhor, nos nomes que aparecem
+nas opções de Times do formulário), lembrando de importar a função Time da pasta de mesmo nome.
+
+
+<Time nome="Programação"/>
+<Time nome="Front-End"/>
+<Time nome="Data Science"/>
+
+
+Lá pra frente, usaremos um método que valerá para cada colaborador que adicionarmos, um map.
+Estilizaremos os Times no css, baseando-se no Figma. Repare que cada time tem uma cor de fundo, uma cor escura
+para cada membro, um título e um leve sublinhado abaixo do título. Volte para o index da pasta Time e crie uma classe
+para a section. Faça as estilizações necessárias para a section e para o h3 no CSS.
+
+
+
+OBS: Boa parte das estilizações do CSS vistos em aula não aparecem no Figma. Eles são números e propriedades
+que o time de Design fala para o professor (ou para o desenvolvedor) como devem ser feitos. O espaçamento e algumas
+outras partes geralmente são feitos com tentativa e erro. Para todos os Challenges, o Portfólio, Alura Geek,
+AluraFlix, Decodificador de Texto e qualquer outra atividade que queira fazer no futuro, são feitos através de
+experiências adquiridas com projetos passados feitos na base da tentativa e erro.
+
+[A base do Figma é geralmente de 4px: 4, 8, 16, 32 e assim por diante.]
