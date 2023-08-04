@@ -1,0 +1,97 @@
+Precisamos agora é garantir que tanto a alteração da variável interna quanto a do usuário tenha
+esse vínculo do componente que precisa ser atualizado novamente. A gente faz isso através do *hook*.
+
+Um Hook, ou gancho, torna possível manter um estado dentro de uma função. O hook que usaremos é o
+useState. Saiba que quando encontrar um comando com "use", tratará de um hook. Vamos tentar primeiro
+com uma string vazia.
+
+const [valor, setValor] = useState("");
+
+
+O useState vai nos retornar dois valores: o valor em si (valor = "") e uma função que permite que ele
+seja "setado", alterado.
+
+[Normalmente usaríamos let valor = '', mas aqui usamos esse useState porque ele prepara uma pseudo variável,
+um objeto para ler e um para escrever, que é o setter.
+
+E em vez de fazermos a atribuição direta de valor = evento.target.value, vamos fazer um setValor.]
+
+
+const aoDigitar = (evento) => {
+    setValor(evento.target.value)
+    console.log(valor)
+}
+
+
+Agora a gente pode alterar o valor vazio no useState para o valor que tínhamos antes. A diferença é que
+em vez de ficar travado, podemos renomear normalmente.
+
+[Isso ocorre porque conforme esse valor muda, o nosso estado muda junto e se o estado muda junto,
+o React sabe que ele tem que renderizar o componente diferente. Com o value e o State atrelados,
+um influencia o outro. Mapeamos a variável para o DOM, para o HTML.]
+
+
+
+Já que está tudo funcionando, agora teremos que elevar esse estado. Cada campo de texto tem que ter
+seu estado individual, não é pra fazer com que os três campos de texto mudem ao mesmo tempo.
+Lá no input value, igualamos ele para props.valor, pois o estado local será recebido via props.
+E o onChange vai chamar o evento aoDigitar. Então o props será aoAlterar (função que definiremos futuramente),
+passando o evento.target.value.
+
+<input value={props.valor} onChange={aoDigitado} required={props.obrigatorio} placeholder={placeholderModificada}/>
+
+const aoDigitar = (evento) => {
+    props.aoAlterar(evento.target.value)
+}
+
+
+[Estamos elevando o estado, o CampoTexto está delegando o controle do estado para quem for usá-lo,
+ele em si não vai controlar seu própio estado.
+
+Mas para isso funcionar precisamos passar para o CampoTexto por meio de parâmetros o *valor*,
+que deve ser um state, e uma função que se chama aoAlterar]
+
+
+
+No index do Formulario, colocaremos três states, um para cada campo de texto, e uma função
+para indicar o que deve ser feito quando houver uma alteração.
+
+const [nome, setNome] = useState('')
+const [cargo, setCargo] = useState('')
+const [imagem, setImagem] = useState('')
+
+E na section, para cada CampoTexto, adicionaremos um valor={primeiro índice do array do useState} e
+aoAlterar={valor => segundoIndiceDoArray(valor)}
+Para certificar-se de que está funcionando, na função aoSalvar do mesmo arquivo, faça com que o console.log
+exiba as três variáveis quando clicarmos no botão Criar Card.
+
+console.log("Form foi submetido => ", nome, cargo, imagem)
+
+
+
+Só falta agora fazer isso funcionar para o Time, que é uma lista suspensa.
+No index da pasta ListaSuspensa, nós não temos um input, mas as propriedades do select são semelhantes o bastante.
+
+<select onChange={evento => props.aoAlterar(evento.target.value)} required={props.required} value={props.value}>
+
+Apaguemos o import {useState} e o const[valor, setValor] = useState("") do CampoTexto porque não precisamos
+mais dele. Daí, vamos ao Formulario e faremos a mesma coisa com os inputs.
+
+const [time, setTime] = useState('');
+
+<ListaSuspensa
+    obrigatorio={true}
+    label="Time"
+    itens={times}
+    valor={time}
+    aoAlterar={valor => setTime(valor)}
+/>
+
+
+Não esquecendo de fazer a verificação adicionando o time no console.log.
+
+
+const aoSalvar = (evento) => {
+    evento.preventDefault()
+    console.log("Form foi submetido =>", nome, cargo, imagem, time)
+}
