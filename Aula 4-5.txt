@@ -1,0 +1,23 @@
+Começando a criar o card de colaborador.
+
+Vamos fazer aquele procedimento padrão de criar uma pasta nova com .js e .css, no qual uma faz o import
+da outra e a mesma tem uma arrow function com retorno e que será exportada.
+
+
+Baseando no Figma, faremos nossos cards terem uma <div> que conterá outras duas div's: A primeira
+é sobre a foto de perfil e o fundo, enquanto que a segunda div será do nome e do cargo. O nome e o
+cargo serão títulos (h4 e h5). Começaremos com alguns nomes padrão que se repetirá por todos os
+outros cargos.
+
+
+Dica: Na hora de colocar o img src da foto de perfil, experimente usar como source a sua página do
+GitHub com extensão .png. Ele vai pegar a foto do seu GitHub e colocar no formulário.
+
+
+Depois, vá no index.js da pasta Time e inclua a tag da função recém criada. Lembre de fazer o import
+(ou clique na sugestão do VSCode antes de terminar de escrever a tag).
+
+
+
+Para a estilização do arquivo .css, temos tudo já pronto pelos professores. Simplesmente copie e cole
+todas as propriedades. Daí é só colocar as respectivas classes nas div's do arquivo Javascript.
