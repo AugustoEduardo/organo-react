@@ -1,0 +1,85 @@
+O componente "time" não tem nenhum comportamento. Ele apenas recebe props e exibe na tela.
+Existem, contudo, algumas vantagens de usarmos componentes assim, eles são mais fáceis de testar de fazer a manutenção.
+
+[Em "App.js", criaremos a nossa lista de times - essa é uma lista que não vai mudar. Nesse momento do Organo,
+o usuário não cadastra os times. Quem oferece os times somos nós, então ela será estática. Por ser estática,
+não precisamos fazer o useState.]
+
+A diferença é que essa lista vai ter apenas o nome, a cor primária e a cor secundária. E os três valores serão
+repetidos de acordo com a quantidade de times. Se temos 7 times, escreveremos os membros da lista 7 vezes.
+Os nomes e cores podem ser vistos no Figma.
+
+
+
+Truque: CTRL + ALT para selecionar várias linhas enquanto teclo a seta de baixo / cima. CTRL + C.
+Em seguida, seguro o ALT, clico em cada um dos "nome: ''" da lista e depois dou CTRL + V.
+
+
+
+[Criamos um times que em vez de ser uma lista de strings é uma lista de objetos. Isso porque
+em cada um dos times nós colocamos informações a mais.
+
+A cor do time de Programação é a que colocamos no CSS, então vamos logo trazê-la aqui.
+A mais escura vamos chamar de corPrimaria e a mais clara chamaremos de corSecundaria.]
+
+
+
+Agora faremos o "map" em cima da lista. Quando queremos iterar em cima de uma lista renderizando um componente é .map.
+
+[Temos que pegar o *times* que está definido e fazer um .map. Vamos mapear, para cada *Time* em *times*,
+e vamos colocarmos um *time* onde o *nome* é o *time.nome*.
+
+O nome não vai mais ser estático, ele vai chamar time.nome. Agora temos uma iteração:
+para cada *time* da nossa lista de *times* cria-se um componente chamado *Time* com esse *nome*]
+
+Mas o Console vai dar um aviso de que cada elemento da lista precisa ter uma prop chamada key, que seja única,
+como fizemos no <select>. Como essa key é do React, a nossa chave será key={time.nome}.
+Apague os <Time nome="NomeDoTime"/> do App.js e escreva:
+
+{times.map(time => <Time key={time.nome} nome={time.nome} corPrimaria={time.corPrimaria} corSecundaria={time.corSecundaria} />)}
+
+OBS: Eu chamei a prop pelo mesmo nome anterior (corPrimaria={time.corPrimaria}), mas não teria problema nenhum se tivéssemos
+escrito, por exemplo, (corDeFundo={time.corDeFundo}).
+
+
+
+[Agora precisamos pensar em pegar os valores hexadecimais e fazê-los estilizar o componente, isso é algo que ainda não fizemos.
+No "index.js" do componente de "Time" fazemos o props.corPrimaria porque temos esse valor.
+Mas esse é um hexa decimal que vai estilizar, não tem como fazermos essa prop no CSS.]
+
+No Time.css, vamos remover o background-color e a cor do border-bottom. E no index, vamos acrescentar um "style"
+às tags <section> e <h3>. Além de escrever style={}, temos que colocar outra chave ali dentro para que o React
+entenda que haverá uma variável dentro delas. Essas variáveis são o backgroundColor para a section e o
+borderColor para o h3. E a variável é a props.corPrimaria e props.corSecundaria cujos valores hexadecimais
+definimos no App.js. O style vai pegar esses valores e inserí-los na página, no DOM.
+
+
+const Time = (props) => {
+    return (
+        <section className="time" style={{backgroundColor: props.corSecundaria}}>
+            <h3 style={{borderColor: props.corPrimaria}}>{props.nome}</h3>
+        </section>
+    )
+}
+
+
+
+Uma outra opção é definir uma constante para a variável dentro do style e colocar a constante nele.
+
+"
+const cssEstilo = {backgroundColor: props.corSecundaria}
+<section className="time" style={cssEstilo}>
+"
+
+
+
+
+[No "index.js" do "Time" recebemos um props e usamos três variáveis que são passadas como argumento
+props.corSecundaria, props.corPrimaria e props.nome.
+
+No nosso "App.js", quando chamamos a tag <Time>, poderíamos ter passado um única props, por exemplo,
+timeDaVez = time e dentro de Time ter feito props.time.nome, props.time.corPrimaria e props.time.corSecundaria.
+
+É uma opção. A escolha tem relação ao estilo de código, a como você quer trabalhar. Se você quer trabalhar com
+uma prop inteira e ter tudo dentro dela ou se você quer separá-la e recebê-la da forma que fizemos aqui.
+Existem vantagens e desvantagens para todos as opções.]
