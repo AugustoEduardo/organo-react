@@ -1,0 +1,120 @@
+Fazendo os cards aparecerem de forma dinâmica!
+Clico no botão do formulário, ele pega o estado do cargo, nome, imagem e time e insere o card.
+
+Por enquanto, apague o <Colaborador/> do index do Time.
+No return do App.js, além do nome e das cores, vou passar também um colaboradores={colaboradores}.
+Esse "colaboradores" vem do "const [colaboradores, setColaboradores] = useState([])" mais acima.
+
+
+[Como o "colaboradores" é um estado, ele deveria ter um gatilho para renderizar de novo. Então,
+na teoria, esse código já deveria funcionar porque nas últimas aulas nós fizemos a base do colaborador.
+Então lá no navegador nós já teremos essa lista de colaboradores, certo?
+
+Certo, mas nós não fazemos nada por enquanto. Temos props.colaboradores toda vez que clicarmos e
+adicionarmos nesse state de arrays, mas nós ainda não estamos fazendo nada com esse array.
+
+Dentro do "Time" ainda não estamos fazendo nada].
+
+
+Voltando ao index do Time, no lugar de onde estava o <Colaborador/>, iremos adicionar um
+{props.colaboradores.map (colaborador => <Colaborador/>)}.
+Esse componente <Colaborador/> ainda está com os valores estáticos. Ou seja, ainda vai aparecer
+os valores fixos no index da pasta Colaborador não importando o que preenchermos no formulário.
+
+
+
+---------- Há duas maneiras de fazer o próximo passo -------------------------------------------------
+
+Até agora nós usamos o props para quase tudo. Então você provavelmente deve ter pensado em passar o
+props como parâmetro no index do Colaborador e usá-lo nos devidos campos.
+
+
+const Colaborador = (props) => {
+    return (
+        <div className="colaborador">
+            <div className="cabecalho">
+                <img src={props.imagem} alt={props.nome}/>
+            </div>
+            <div className="rodape">
+                <h4>{props.nome}</h4>
+                <h5>{props.cargo}</h5>
+            </div>
+        </div>
+
+    )
+}
+
+export default Colaborador
+
+
+
+Em seguida, iríamos para o index do Time e colocaria o nome, imagem e time no props.colaboradores.map:
+
+const Time = (props) => {
+    const cssEstilo = {backgroundColor: props.corSecundaria}
+
+    return (
+        <section className="time" style={cssEstilo}>
+            <h3 style={{borderColor: props.corPrimaria}}>{props.nome}</h3>
+            {props.colaboradores.map (colaborador => <Colaborador
+                nome={colaborador.nome}
+                cargo={colaborador.cargo}
+                imagem={colaborador.imagem}
+                />)}.
+        </section>
+    )
+}
+
+export default Time
+
+
+
+A segunda maneira é, ao invés de usar o props, fazer o que chamamos de desestruturar o código. No lugar dele,
+inserimos um array com os três campos desejados e passamos somente os nomes desses campos nos lugares que a gente
+quer, sem o props.
+
+
+const Colaborador = ({nome, cargo, imagem}) => {
+    return (
+        <div className="colaborador">
+            <div className="cabecalho">
+                <img src={imagem} alt={nome}/>
+            </div>
+            <div className="rodape">
+                <h4>{nome}</h4>
+                <h5>{cargo}</h5>
+            </div>
+        </div>
+
+    )
+}
+
+export default Colaborador
+
+
+Percebeu a diferença? O código vai funcionar corretamente dos dois jeitos. Em ambos os casos nós teremos
+que fazer a mesma alteração no index do Time.
+A vantagem do segundo caso é que ele torna mais fácil de ser entendido por um programador que acabou de
+ver o projeto.
+
+------------------------------------------------------------------------------------------
+
+Um card adicionado vai deixá-lo abaixo dos cards adicionados anteriormente. Para deixá-los lado a lado,
+temos que fazer alterações no .css do Time. Hora de um flexbox!
+Para facilitar, crie uma <div> que englobe o props.colaboradores.map e dê uma classe a ela.
+
+
+Depois disso, falta filtrar esses cards. Isto é, passar os colabores somente para os times específicos
+ao invés de serem adicionados em todos os times.
+
+No App.js, times.map, na parte de colaboradores, usaremos uma função do Javascript, o "filter".
+Queremos filtrar o card de forma que o time do colaborador precise ser igual ao nome do time.
+
+
+colaboradores={colaboradores.filter (colaborador => colaborador.time === time.nome)}
+
+(Sim, são três sinais de igual)
+
+
+Estamos exibindo, porém, alguns times vazios, sem colaboradores. Que tal se no próximo passo
+escondermos esses times? Enquanto o número de colaboradores for zero, os times não aparecem?
