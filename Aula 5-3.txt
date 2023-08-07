@@ -1,0 +1,79 @@
+--------------Este conteúdo é opcional-----------------
+
+Existe uma ferramenta chamada "debugger" que nos permite ver o código linha por linha
+quando algo é executado. Se formos no App.js e digitar debugger na função
+aoNovoColaboradorAdicionado, ele vai exibir um debugger quando clicarmos no botão de
+Criar Card e estivermos com o Console aberto.
+
+
+Experimente fazer isso. Preencha seus dados com o Console aberto e clique no botão.
+Nossa página vai pausar por um momento e irá exibir no Console em que parte ele parou
+a execução. Além disso, podemos ir na aba "console" e extrair algumas informações.
+Digite "colaborador" e ele retornará todas as informações da pessoa que você acabou
+de adicionar. Digite "colaboradores" e ele vai retornar as informações de todos os
+cards inseridos até agora.
+
+Bem útil, não? Os botões do debugger que aparecem no topo avançam para a próxima etapa.
+Como a função "aoNovoColaboradorAdicionado" é pequena, ele vai sair do debugger depois do
+setColaboradores, que é a próxima etapa.
+
+
+
+Até agora tomamos muito cuidado ao criar elementos HTML no código.
+Se irmos ao Banner.js, por exemplo, estamos retornando um <header> com a imagem dentro.
+Caso a gente queira colocar um título, h1, logo após, é bem possível do navegador dar erro.
+
+Preste atenção nas mensagens de erro: ele vai dizer o tipo de erro que aconteceu, em qual
+arquivo isso apareceu e pode até dar uma sugestão. No exemplo, ele sugere usar o Fragment do
+React para o código rodar novamente.
+Aliás, um detalhe do Fragment permite que escrevamos a tag vazia. Ou seja
+
+<Fragment></Fragment>     é igual a     <> </>
+
+
+
+O que tentamos e deu erro:
+
+export const Banner = () => {
+    // JSX
+    return (
+        <header className="banner">
+            <img src="/imagens/banner.png" alt="Banner do cabeçalho"/>
+        </header>
+        <h1>Teste</h1>
+    )
+}
+
+
+
+Possível solução:
+
+
+export const Banner = () => {
+    // JSX
+    return (
+        <div>
+        <header className="banner">
+            <img src="/imagens/banner.png" alt="Banner do cabeçalho"/>
+        </header>
+        <h1>Teste</h1>
+        </div>
+    )
+}     // Incluímos uma div, caso não tenha percebido.
+
+
+
+Solução usando Fragment (também posso usar tags vazias no lugar do Fragment):
+
+
+export const Banner = () => {
+    // JSX
+    return (
+        <Fragment>
+            <header className="banner">
+                <img src="/imagens/banner.png" alt="Banner do cabeçalho"/>
+            </header>
+            <h1>Teste</h1>
+        </Fragment>
+    )
+}
