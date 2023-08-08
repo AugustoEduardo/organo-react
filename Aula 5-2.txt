@@ -1,8 +1,0 @@
------------Lista de bugs corrigidos----------
-
-- Quando criamos o card, a lista de times era a única parte do formulário que não se resetava.
-Corrigimos este problema e ainda acrescentamos um default de time vazio.
-
-- Removemos o erro do navegador dizendo que estava faltando uma "key" no card criado.
-
-- Os cards agora possuem a cor primária correta quando são adicionados.
