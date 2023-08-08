@@ -1,0 +1,2 @@
+Este programa foi feito usando o material do curso de React: Desenvolvendo com Javascript da Alura (www.alura.com.br). Nele você pode encontrar algumas anotações nos commits de como executar cada etapa e por que seguir por aquele caminho. Disponibilizo este conteúdo gratuitamente para auxiliar aqueles que estejam com dificuldades e gostariam de um material de apoio.
+Você não pode, em hipótese alguma, aproveitar-se do conteúdo deste material para uso comercial. Tudo o que se encontra aqui deve ser usado exclusivamente para fins acadêmicos.
