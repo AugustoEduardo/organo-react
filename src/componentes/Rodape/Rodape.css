@@ -12,10 +12,14 @@
     margin-right: 48px;
 }
 
-.footer ul li:last-child {
-    margin-right: 0;
+#organo {
+    margin-left: 6rem;
 }
 
+/* .footer ul li:last-child {
+    margin-right: 0;
+} */
+
 .footer section p {
-    font-size: 24px;
+    font-size: 1.25rem;
 }

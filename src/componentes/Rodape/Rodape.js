@@ -6,31 +6,25 @@ export const Rodape = () => {
         <section>
             <ul>
                 <li>
-                    <a href="facebook.com" target="_blank">
-                        <img src="/imagens/fb.png" alt="Logo do Facebook"></img>
+                    <a href="http://linkedin.com/in/eduardoaadias">
+                        <img src="/imagens/linkedin.png" alt="Logo do Linkedin"></img>
                     </a>
                 </li>
 
                 <li>
-                    <a href="twitter.com" target="_blank">
-                        <img src="/imagens/tw.png" alt="Logo do Twitter"></img>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="instagram.com" target="_blank">
-                        <img src="/imagens/ig.png" alt="Logo do Instagram"></img>
+                    <a href="http://github.com/augustoeduardo">
+                        <img src="/imagens/github.png" alt="Logo do Github"></img>
                     </a>
                 </li>
             </ul>
         </section>
 
-        <section>                
+        <section id="organo">                
             <img src="./imagens/logo.png" alt="Logo do Organo"></img>
         </section>
 
         <section>
-            <p>Desenvolvido por Alura</p>
+            <p>Desenvolvido por Eduardo A. Dias</p>
         </section>
     </footer>
     )

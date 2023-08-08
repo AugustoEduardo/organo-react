@@ -13,6 +13,10 @@ const Formulario = (props) => {
 
     const aoSalvar = (evento) => {
         evento.preventDefault()
+        if (time === "") {
+            alert("Por favor escolha um time")
+            return;
+        }
         props.aoColaboradorCadastrado({
             nome,
             cargo,
