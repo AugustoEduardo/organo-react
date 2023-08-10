@@ -1,0 +1,44 @@
+Este curso vai te explicar como algumas coisas do React se comportam e por que.
+
+Nós começamos clonando o nosso repositório do curso anterior e faremos modificações numa outra pasta.
+SE ALGO ESTIVER DIFERENTE OU NÃO FUNCIONAR, REFAÇA TUDO DESDE O INÍCIO, MAS CLONANDO O PROGRAMA
+DO PROFESSOR! (https://github.com/lfrprazeres/organo.git).
+
+
+Com o repositório clonado, abra o Terminal do VSCode e use o comando "npm start" para executar.
+Porém, ao tentar executar o comando, ele dá um erro dizendo que "react-scripts não é reconhecido".
+
+Indo em src > package.json temos várias informações sobre o projeto, dentre elas o nome, a versão,
+se ele é privado ou não e assim por diante.
+
+
+
+[Temos também as dependências, e os scripts que são os comandos que podemos rodar. Um deles
+é o start, que tentamos usar agora.
+
+As dependências do projeto são elementos dos quais nosso pacote depende, então, precisamos instalar
+todas essas dependências para que o projeto funcione. Os scripts também são dependências, por isso
+nosso comando não funcionou, porque ainda não instalamos o react-script start.]
+
+
+Para instalar essas dependências, usamos o comando "npm install".
+
+
+["npm" é a abreviação de Node Package Manager , que é o gerenciador de pacotes do Node.
+O Node é um framework criado para que consigamos usar Back-End no JavaScript. O npm nos permite
+ter essas dependências diretamente configurados nesses arquivos como "package.json",
+e ele os instala automaticamente.]
+
+
+
+O package-lock.json é bem parecido com o package.json, porém muito maior. Ele tem informações
+de todas as versões específicas que estamos colocamos no projeto.
+Tem também a pasta node_modules que foi criada agora. No package.json, podemos ver que temos
+7 (sete) dependências, embora o node_modules apresente muito mais do que sete pastas.
+Isso ocorre porque o React não depende apenas dele, depende também de um pacote, que depende
+de outro pacote, e assim por diante. Por esse motivo, o Node instala todas as dependências de
+uma vez só.
+
+
+
+Por fim, digite "npm start" no terminal para abrir o projeto.
