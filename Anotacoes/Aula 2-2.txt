@@ -1,0 +1,60 @@
+Abrindo o App.js, vemos que ele está importando um monte de funções de pastas diferentes.
+Apertar CTRL e clicar na função App não vai resolver nada. Mas nós podemos clicar no ícone
+de Pesquisar no canto esquerdo e procurar por "App".
+
+Vai retornar quase uma centena de resultados, mas o que a gente quer está lá no final.
+O arquivo "index.js" está importando o App, então vamos abrí-lo.
+
+(Se ainda não entendeu, nós queremos saber o que o App está fazendo para o programa.
+Porque percebe-se que a função executa o Banner, o Formulário e o Rodapé no fim do código,
+mas quem ou o que está executando o App? Veremos isso agora.)
+
+
+Com o index.js aberto, vemos que ele importa a função App do arquivo de mesmo nome e executa-o
+no meio de tags (HTML?) React. Ambos estão dentro de uma variável "root" que tem uma parte bem
+peculiar: "getElementById". Soa familiar?
+Então volte ao ícone de busca e procure por "id=".
+
+Vai retornar o id que acabamos de escrever na linha anterior, obviamente, e se estiver usando
+o Organo desenvolvido por Eduardo A Dias, terá um id utilizado para estilizar o Rodapé.
+O que a gente tem que se preocupar, no entanto, é com o id que não foi escrito por nós ou pelo
+desenvolvedor - o id do index.html. Abra-o.
+
+
+
+Ora ora, se não é um código feito inteiramente em HTML! O id="root" dentro da <div> é a parte
+que exibe o nosso organo. Inclusive, se você abrir outra <div> embaixo e escrever qualquer coisa,
+esse conteúdo vai ser exibido logo após o Rodapé ao executar o código no navegador. Não estará
+estilizado porque não pedimos para estilizar essa parte extra e também porque não está dentro do root.
+
+
+
+Agora, explicarei a diferença entre uma Biblioteca e um Framework.
+
+Biblioteca: Serve para um propósito muito específico. O React é uma biblioteca.
+Sim, React é uma biblioteca porque ele serve para algo simples como a criação de componentes.
+Uma vantagem do React é que ele é muito flexível. Você teve a liberdade de exibir a nova <div>.
+A desvantagem é que para fazer outras coisas, é necessário instalar dependências.
+
+Framework: Serve para resolver vários problemas, sendo um pouco mais robusto que uma biblioteca.
+
+
+
+Mais uma coisa, como a gente diferencia o DOM "real" do DOM do React (Virtual DOM)?
+Todo o index.html é um HTML puro. Mas quando vemos o ReactDOM.createRoot do index.js, esta parte
+já é um Virtual DOM.
+
+O que a gente está vendo é todo o DOM normal, o index.html cheio das tags e logo depois vem o DOM
+do React, criado pelo createRoot.
+Então, todas aquelas tags que vemos no React que parecem HTML não são HTML necessariamente falando.
+A div dentro do return, que está dentro da função App no App.js, é um exemplo.
+
+
+
+
+(No mesmo return, o times.map está renderizando o <Time> na página. Tal <Time> tem seus detalhes
+exibidos no index.js da pasta "Time".
+Você vê que a função retorna uma <section>, que tem uma <div> e um colaboradores.map, renderizando
+cada um dos colaboradores.
+
+Novamente, o times.map do App.js renderiza os times. O colaboradores.map da pasta Time renderiza cada membro.)
