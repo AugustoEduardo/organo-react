@@ -59,3 +59,11 @@ parâmetro e no onClick, escreva somente "aoDeletar", sem props.)
 
 Agora, clicando no botão Deletar, vai exibir a mensagem que colocamos no console.log da função
 deletarColaborador lá no App.js, que é o que queríamos.
+
+
+
+
+OBS: Lá em cima, quando eu falei que o aoDeletar estava retornando undefined, um dos outros motivos
+é que a função não está sendo passada em todos os componentes acima do que eu querira utilizar.
+Muito provavelmente, caso o seu componente esteja muito abaixo na árvore, você não está passando
+a função para todos os componentes!

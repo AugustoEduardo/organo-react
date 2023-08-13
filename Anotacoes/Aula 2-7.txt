@@ -1,0 +1,70 @@
+Antes de fazer o botão Deletar funcionar, vamos dar mais uma estilizada nele:
+Usaremos um ícone.
+Mas o React não cria ícones sozinho e nem os exporta. De forma semelhante ao
+importar fontes do Google Fonts no HTML, iremos instalar uma biblioteca de ícones
+no nosso React. Veja as instruções aqui:
+
+https://react-icons.github.io/react-icons/
+
+
+Logo no início já tem o código para a instalação. Abra o terminal e execute-o.
+
+"Ei! Meu Terminal não me permite instalar o código! Aliás, não consigo digitar
+nada nele. Por quê?"
+É, se ele estiver aberto com a mensagem de que o organo foi compilado com sucesso,
+não dá pra digitar ali. Mas você pode fechar essa parte teclando CTRL + C ou
+clicando no ícone de "+" no canto superior direito para abrir um novo terminal.
+(O que eu fiz foi teclar CTRL + C e depois digitar N (não) quando ele fez uma pergunta).
+
+
+Quando a instalação estiver concluída, pode ver que houve alguma alteração nos package.json.
+No início desses arquivos, aparecerá uma nova dependência: o react-icons e sua versão.
+
+
+Voltando ao site react-icons, pode procurar por um ícone de sua escolha que remeta ao
+ato de apagar algo no canto esquerdo (ou digite no campo de busca). Eu optei por pegar
+o ícone "AiFillCloseCircle". Um clique no ícone já o copia para sua área de transferência.
+
+Ainda na página, vá para Home (no canto esquerdo) e veja como importar o ícone para o React.
+Tudo o que tem que fazer é ir no arquivo desejado e escrever:
+
+
+import { NomeDoIcone } from 'react-icons/doisPrimeirosDigitosDoNomeDoIcone'
+
+
+Ou seja, se o ícone se chama "FaBeer", ele tem que ser importado de 'react-icons/fa', pois
+"fa" são as duas primeiras letras de FaBeer.
+O arquivo do qual queremos inserir o ícone é o index.js do Colaborador. Faça o import como acima
+do ícone escolhido.
+Em seguida, na segunda <div>, reescreva-a para a tag de mesmo nome do ícone e faça um autofechamento.
+Exemplo:
+
+<AiFillCloseCircle className="deletar" onClick={props.aoDeletar}/>
+
+
+Salvando o arquivo, já temos o ícone no canto superior direito dos colaboradores.
+
+
+Por fim, podemos aumentar o tamanho do nosso ícone. Na mesma tag desse ícone, digite "size={}"
+e coloque o tamanho desejado.
+
+
+
+(Por que tivemos que colocar o AiFillCloseCircle entre chaves? E por que no index do Formulario
+tivemos que fazer a mesma coisa ao importar useState do react?
+
+Porque o AiFillCloseCircle e o useState não são os export default de seus respectivos diretórios.
+
+Como assim?
+No Colaborador, nós temos um "export default Colaborador", certo? E no Time, estamos importando o
+Colaborador sem as chaves, não é? Isso porque eles são as únicas funções / itens dos lugares dos
+quais estamos importando. Na pasta do react-icons, tem um monte de arquivos menores, e não faz
+sentido usar "export default" de todos eles. Tanto é que se você criar outra função dentro de um
+dos arquivos, vai dar erro se quiser tentar um export default da nova função se a primeira já estiver
+recebendo esse tratamento.
+Ou seja, não é possível fazer export default de mais de uma função no mesmo arquivo.
+
+Quando um arquivo tem vários itens, como é o caso da pasta react-icons, temos que especificar o que
+queremos usando as chaves. Ao não usar chaves, estou dizendo para o React que quero somente o padrão.
+
+Um arquivo pode ter vários export {}, mas somente um export default.)
