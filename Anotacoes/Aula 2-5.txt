@@ -1,0 +1,61 @@
+Conforme falamos no final da aula passada, é bem capaz de dar erro no programa depois que
+adicionamos o aoDeletar ao return. Quer prova?
+Antes do return, faça um console.log que receba tudo o que está no <Colaborador>.
+(Se sua página não tiver nenhum colaborador, basta preencher quaisquer informações no
+formulário). Abra o Console, clique em qualquer nome que aparecer. Você verá que a parte
+do aoDeletar estará como "undefined".
+
+
+Por que isso acontece?
+O index.js da pasta Time tem uma função "Time" com parâmetro "props", cujo <Colaborador>
+contém o aoDeletar, que está sendo retornado. O App.js, por sua vez, tem o times.map,
+que renderiza o Time contendo key, nome, corPrimaria... mas não tem o aoDeletar.
+Precisamos passar alguma função para que o Time saiba que aoDeletar se refere a algo.
+
+No App.js, crie uma função "deletarColaborador()" (preferencialmente antes do return),
+que por enquanto receberá um console.log só pra mostrar que está funcionando. Daí,
+na renderização do <Time>, diga que aoDeletar recebe deletarColaborador.
+O Time espera que seja passado o aoDeletar no App, mas o nome da função é deletarColaborador.
+Por isso passamos os dois.
+
+(Colocamos a função com nome diferente para mostrar que é possível executar um comando que
+recebe uma função diferente. Além disso, "aoDeletar" não é específico o bastante. Sem a gente
+explicar, alguém poderia pensar que estava deletando o banner, o formulário inteiro, o botão...)
+
+
+(À propósito, o professor fez uma forma diferente de renderizar o <Formulario>. Vou deixar
+comentada a parte que estava antes para que possa comparar à versão nova, que está mais
+caprichada. Tomarei a liberdade de fazer algumas adições e ajustes baseando no projeto dele.)
+
+
+
+Seguindo os passos, vamos ao Console. Clicando no props de algum colaborador, vemos que o
+aoDeletar está exibindo a função deletarColaborador.
+No Time, apague o console.log, pois já sabemos que está funcionando.
+Daí, lá no index.js da pasta Colaborador, temos a função que retorna o colaborador. Logo depois
+da primeira <div> (com className "colaborador"), crie uma nova <div> com className="deletar".
+Escreva dentro dele... a palavra Deletar.
+
+Obviamente precisaremos estilizar essa parte. No Colaborador.css, faça as seguintes alterações:
+
+.colaborador {
+    position: relative;
+    width: 280px;
+}
+
+.deletar {
+    position: absolute;
+    right: -10px;
+    top: -10px
+}
+
+
+O "botão" Deletar foi criado, mas por enquanto ele não faz nada. Vamos ter que criar um evento que
+faça com que o botão execute alguma ação.
+Na <div> recém-criada, dentro dela escreva "onClick={props.aoDeletar}".
+
+(Se você fez com que a const Colaborador recebesse parâmetros diferentes de props, passe aoDeletar como
+parâmetro e no onClick, escreva somente "aoDeletar", sem props.)
+
+Agora, clicando no botão Deletar, vai exibir a mensagem que colocamos no console.log da função
+deletarColaborador lá no App.js, que é o que queríamos.

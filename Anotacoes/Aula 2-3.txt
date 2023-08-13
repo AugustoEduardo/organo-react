@@ -1,0 +1,90 @@
+Revisando o conteúdo anterior:
+Nosso programa começa a funcionar pelo index.html. De lá, ele tem a root, que é
+puxada pelo index.js e renderiza o React e o App. Este último, por sua vez, tem
+seu funcionamento detalhado no App.js.
+
+No App.js, ele retorna o Banner, o Formulario, o Rodape e faz um "map" do Time.
+Quero alterar o programa de modo que possamos deletar um colaborador. Já que os
+colaboradores são feitos no Time, abriremos o index.js da pasta "Time".
+
+
+O return mostra que os times são renderizados se tivermos mais de um integrante.
+E o map renderiza os integrantes desse time.
+Para a gente deletar esses integrantes, temos que passar alguma coisa dentro do
+<Colaborador> que remeta à ação de deletar.
+
+Como já deve saber, uma arrow function (() => {}) que não tem nenhuma palavra
+antes da chave faz o mesmo processo que "return {}", que é o que o map está
+fazendo.
+Tá... não tem chaves por enquanto. Mas funciona porque ele está retornando um
+único elemento (<Colaborador>). Vou precisar que ele retorne mais de um elemento,
+então tenho que usar as chaves.
+
+E para testar se tudo funciona, antes do return, dou um console.log
+
+
+            {props.colaboradores.map (colaborador => {
+                console.log("Renderizando colaborador")
+
+                return <Colaborador
+                key={colaborador.nome}
+                nome={colaborador.nome}
+                cargo={colaborador.cargo}
+                imagem={colaborador.imagem}
+                corDeFundo={props.corPrimaria}
+                />
+
+                })}.
+
+
+(Se não aparecer nada no console, tente inserir um colaborador preenchendo o formulário)
+
+Agora, faça o teste novamente, desta vez pedindo que o console log exiba toda a tag <Colaborador>.
+Veja que ele exibe o resultado como um objeto. Por quê?
+Porque o React vê um componente como se fosse um objeto,  então, ele sabe que precisa renderizar
+uma tag HTML quando vai para o DOM real, mas aqui ele vê como um objeto. Por essa razão, para
+que consigamos deletar um componente, precisaremos passar uma nova propriedade para o componente,
+que chamaremos de "aoDeletar".
+
+No final do return, escreva aoDeletar, que recebe uma arrow function. Coloque-a também no console.log
+para ver o código funcionando. Se clicar em props no Console, vai aparecer o "aoDeletar: () => {}".
+
+
+
+
+-----UM POUCO DE COMO O REACT FUNCIONA-----
+
+O React vê o Componente como um bloco de Lego. E as propriedades são os encaixes desse bloco.
+Então imagina que nosso bloco de Lego "Colaborador" tinha somente dois encaixes e que adicionamos
+mais um encaixe agora mesmo.
+
+(Os blocos de Lego tem suas propriedade naturais, ele é feito de plástico, tem uma cor e um tamanho.
+Essas são propriedade naturais que todo componente Lego possui. Porém, os encaixes mudam! Os encaixes
+podem ser diferentes entre si e entre os blocos de Lego, mas todos os blocos de Lego tem encaixes porque
+precisamos deles para encaixar os blocos.
+
+Essas características de tamanho, cor e formato, por exemplo, que definem o tipo de bloco, podem ser
+comparados aos "states" e os encaixes os blocos de Lego possuem, podemos chamar de "props" dos nossos
+componentes.
+
+Quando criamos o aoDeletar, nós criamos um novo encaixe no bloco de Lego do Colaborador. Uma das
+possibilidades é ele ser uma propriedade interna, que é o "state". Porém, isso não faz muito sentido,
+porque nós teríamos que deletar ele em App.
+Ou a gente passa lá de cima a funcionalidade e só executa-a aqui de baixo.
+
+Imagine que você esteja com um volante. Ao rodamos o volante, ele faz algo na engrenagem embaixo do carro.
+Toda a informação que o volante passa para a engrenagem é uma propriedade, ou seja, um encaixe que você tem
+entre uma bloco de Lego (volante) e outro (engrenagem). É assim que o componente React funciona.)
+
+--------------------------------------------
+
+
+Nós criamos o aoDeletar como arrow function. Para isso funcionar de fato, temos que escrever a função em
+outro lugar do programa e depois chamá-la aqui.
+Escreva então aoDeletar={aoDeletar}. O programa vai dar erro porque a função ainda não existe. E também
+vai ser preciso colocá-la no const Time do mesmo arquivo. Assim:
+
+const Time ({time, colaboradores, aoDeletar}) = {restoDoCodigoQueNaoQueroEscreverTudoDeNovo}
+
+OBS: Não é necessário colocar aoDeletar dentro de const Time se você estiver usando apenas (props).
+Basta que no return esteja escrito aoDeletar={props.aoDeletar}
