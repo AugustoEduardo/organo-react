@@ -1,0 +1,50 @@
+Antes de criar as funcionalidades do botão Deletar, quero adicionar a opção de mudar as cores
+dos times.
+Sim, a gente pode fazer isso no .css, mas daí ficaria uma mudança estática. O que eu quero é
+mudar a cor de forma dinâmica.
+
+Irei ao index.js do Time e criarei, antes do h3, um input com o tipo "color", contendo um nome
+para a classe.
+
+Isto foi falado no outro código do organo, mas repetirei aqui. Para atribuirmos classes no React,
+usamos className ao invés de class porque o "class" do React tem um comportamento parecido com
+as classes que você encontra no Python. Para que pudesse diferenciar a classe do Python da classe
+do HTML, atribuiu-se o termo "className".
+
+Criada a classe, adicione as seguintes propriedades ao Time.css:
+
+
+.input-color {
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    /* Não esqueça de acrescentar position: relative na classe .time */
+}
+
+
+Vai aparecer uma paleta de cores perto dos times, mas por enquanto não dá para mudar as cores deles
+ainda. Porque o input está não-controlado.
+Um exemplo de input controlado pode ser visto no index.js do CampoTexto. Ali, o input tem o value e
+o onChange, onde um é o valor do input e o outro é ativado quando algo muda. O value é um input controlado
+porque ele não vai mudar de cor até que nós mesmos mudemos esse valor.
+
+No nosso Time, o input não tem value e nem onChange. Podemos até usar onChange sem value, mas se não
+controlarmos o valor, nunca conseguiremos uma comunicação eficiente entre o input e a cor geral do time.
+Então precisamos dizer que o valor do input é o valor do time, e o onChange será usado para mudar a cor.
+Desta forma, como a cor do time é a cor do input, o React mudará a variável por "debaixo dos panos" e
+alterará a cor do <input>.
+
+
+Portanto, nesse input, colocarmos um value={time.corSecundaria} (ou corPrimaria, se preferir).
+(Se não funcionar, tente value={props.corSecundaria})
+
+
+Ao clicarmos nossa paleta de cores, ainda não conseguiremos mudar a cor. Pois não estamos executando o
+onChange para fazer essa mudança na variável com o clique.
+Só que, no App.js, "times" é uma constante. E o React só consegue mudar states. Ou seja, quando é um estado,
+há um controle maior sobre o que exatamente precisa ser renderizado.
+
+[É justamente por isso que tem uma performance excelente.
+
+Para conseguirmos fazer o <input> funcionar, já que temos o value, precisaremos criar o onChange dentro do
+<input> de type='color', em que mudaremos a corSecundaria do time que queremos alterar a cor.]
