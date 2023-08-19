@@ -13,7 +13,7 @@ const Formulario = (props) => {
 
     const aoSalvar = (evento) => {
         evento.preventDefault()
-        if (time === "") {
+        if (time === "Selecione um time") {
             alert("Por favor escolha um time")
             return;
         }

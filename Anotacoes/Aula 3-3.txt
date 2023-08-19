@@ -1,0 +1,133 @@
+(Consegui modificar alguns incômodos e melhorias, como a paleta de cores no lugar correto
+e uma opção padrão "Selecione um time")
+
+
+Veja o Console do navegador. Ele nos dá um aviso de que demos um "value" num prop cujo
+campo não tem um onChange. Isto faz com que ele seja read-only, "somente leitura".
+
+Retorne ao App.js. Renomeie o const times para um array com os parâmetros [times, setTimes],
+que seja igual a um useState. Lembre-se que o que estiver dentro do useState precisa estar entre
+parênteses. Feito isso, temos nosso State criado.
+
+
+(O fazemos dessa forma usando os colchetes porque o useState retorna dois valores: um array cujo
+primeiro item é a variável que queremos, e uma função que altera essa variável.
+
+Poderíamos escrever apenas const times igual a useState() que também funciona, mas se quiséssemos
+pegar a variável deste times, teríamos que escrever times[0] na linha seguinte ao function App().
+
+E se quiséssemos mudar o valor da variável, precisaríamos escrever times[1] para pegarmos o setState()
+e ainda colocar parênteses para dizermos que estamos executando essa função.
+
+
+function App() {
+    times[0]
+    times[1]()
+    const times = useState([...])
+    }
+
+
+Desta forma, ficaria bastante confuso e se tornaria um problema.
+Então usamos uma prática chamada *Destruct*, ou seja, estamos "desestruturando" este retorno.)
+
+
+Olhando no index.js do Time. Se seu const Time recebe (time, colaboradores, aoDeletar), estará
+esperando um objeto que contenha esses nomes. É a mesma coisa que foi feita no App.js, só que em
+vez de esperar um objeto, ele está esperando um array. Vamos criar uma função especificamente para
+mudar a cor.
+
+Lá embaixo, antes do return, crie uma função mudarCorDoTime, que recebe uma cor. Na função, chame o
+setTimes() para executar o setState que declaramos anteriormente. Nele, queremos passar times.map()
+com cada time (arrow function). Como queremos mudar um time só, precisamos ter a propriedade,
+a variável dentro desse time que diga: "se é igual a esse time, mude a cor dele".
+Para isso, também teremos que passar mais um parâmetro para a função mudarCorDoTime, "nome".
+Por fim, retorne o time (senão teremos um array de undefined).
+
+
+
+  function mudarcorDoTime (cor, nome){
+    setTimes(times.map(time => {
+      if (time.nome === nome) {
+        time.corSecundaria = cor;
+      }
+      return time;
+    }))
+  }
+
+
+
+E para a função fazer efeito, temos que ir ao <Time> e dizer:
+
+mudarCor = {mudarCorDoTime}
+
+
+
+Voltando à pasta Time, adicione o parâmetro "mudarCor" ao const Time (não é necessário se ainda estiver
+só com o props).
+
+No <input>, adicione um onChange. Esse onChange é igual ao do JavaScript: ele espera um evento,
+da mesma forma que o onClick ou onHover, por exemplo.
+Dentro das chaves do onChange, adicionamos um "evento", que terá uma arrow function e executará o
+mudarCor() (ou props.mudarCor()). O primeiro parâmetro que iremos passar para o mudarCor é a cor e o
+segundo parâmetro será o nome, seguindo a nova função do App.js.
+... Só que não vamos escrever mudarCor(cor,nome). Vai ser um pouco diferente.
+
+
+A cor vem do evento. O evento foi disparado por alguém. Então a cor vai ser o *valor* do *alvo* do *evento*.
+Sendo assim, escreveremos mudarCor(evento.target.value), pois o value é a propriedade do <input> que estamos
+passando, ou seja, o value={props.corSecundaria} (somente "corSecundaria" se o const Times não tiver props).
+
+
+(Na hora de executar, ele está com essa value, mas como o React tem o virtual DOM e precisa fazer a mudança,
+não irá fazê-la porque só consegue fazer a mudança se nós mudarmos o State.
+
+Já estamos passando primeiro a cor, e agora passaremos o nome do time, props.nome após a vírgula.
+
+(Caso não tenha o props como parâmetro do const Time, o "time" tem que ser um desses parâmetros, daí no
+mudarCor(), o segundo parâmetro deve ser "time.nome"))
+
+
+
+Agora você provavelmente consegue mudar a cor dos colaboradores na página com a paleta de cores.
+Não conseguiu? Então é possível que alguma parte do seu código não bate com o que deveria. Pode ser que
+tenha corPrimaria em alguns lugares do const Time em que deveria estar escrito corSecundaria ou vice-versa.
+Verifique se o código é o mesmo que o seu:
+
+(OBS: Meu const Time tem apenas o props como parâmetro)
+
+
+
+const cssEstilo = {backgroundColor: props.corPrimaria}
+
+<input onChange={evento => props.mudarCor(evento.target.value, props.nome)} value={props.corSecundaria} type="color" className="input-cor" />
+
+<h3 style={{borderColor: props.corSecundaria}}>{props.nome}</h3>
+<div className="colaboradores">
+    {props.colaboradores.map (colaborador => {
+
+        return <Colaborador
+        key={colaborador.nome}
+        nome={colaborador.nome}
+        cargo={colaborador.cargo}
+        imagem={colaborador.imagem}
+        corDeFundo={props.corSecundaria}
+        aoDeletar = {props.aoDeletar}
+            
+        />
+    })}
+</div>
+
+
+
+(Notaremos que aquele aviso desapareceu do Console e poderemos mudar a cor dos cards do times clicando no botão do input.
+
+Com isso, o React mudará o State do <input> com o onChange, que por sua vez passará a mudança para o time em App(),
+o qual possui um type='color' referente ao estado, e depois passará para todos os colaboradores, mudando seus backgrounds.)
+
+
+
+
+"Por que precisamos transformar a constante times em um state para mudar a cor?"
+R: Porque só assim o React “escuta a mudança”.
+
+Com o setState, o React fica ciente que aquele pedaço pode ser mudado, e assim que ele é mudado, o React atualiza a tela por nós.
