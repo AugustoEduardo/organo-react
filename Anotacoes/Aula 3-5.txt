@@ -1,0 +1,96 @@
+Neste tópico iremos fazer o botão de input de type='color' (a paleta de cores) mudar tanto
+a cor primária quanto a cor secundária. Até agora só estamos alterando a cor secundária.
+Mas ao invés de fazer alterações na cor primária e pedir para que ela mude conforme algumas
+especificações, a gente vai unificar as cores de modo que as duas mudem ao mesmo tempo.
+Escolhemos fazer deste modo porque pode ser desgastante ter que lidar com dois elementos
+ao mesmo tempo, daí preferimos mudar apenas um elemento que sirva para ambos.
+
+
+Indo ao App.js, dentro do const [times, setTimes], remova todas as "corPrimaria" e seus
+hex codes (pode usar CTRL + D para facilitar na seleção, além de "CTRL + SHIFT + seta direita").
+Da mesma forma, selecione todas as "corSecundaria" (inclusive a que estiver dentro da função
+mudarcorDoTime()) e renomeie-as para "cor".
+
+
+Agora teremos que ir ao index.js da pasta Time e renomear todas as "corSecundaria" para "cor",
+mantendo o padrão.
+Só falta mudar o cssEstilo, já que o backgroundColor dele está como corPrimaria, que não existe mais.
+
+
+Antes, vamos adicionar uma propriedade chamada "opacity". Coloque-a como opacity: 0.6 e teste no seu
+navegador.
+Veja que isso modificou a opacidade dos times. Não dá pra mudar a cor ainda, mas vamos com calma.
+
+
+Para mudar a opacidade de forma dinâmica, teremos que instalar um pacote chamado HEX-to-RGBA:
+
+
+https://www.npmjs.com/package/hex-to-rgba
+
+
+(Neste link, encontraremos a parte "Usage" em que descobriremos como passar um valor hexadecimal para ser transformado em RGB.
+Se colocarmos um segundo parâmetro como uma string entre aspas simples com valores de zero a um, mudaremos a opacidade.)
+
+
+No terminal, digite o comando que aparece no site.
+npm install --save hex-to-rgba  (recomendado instalar sem o --save)
+
+Instalado o pacote, volte ao index.js do Time e faça a importação conforme escrito no site.
+import hexToRgba from 'hex-to-rgba';
+
+Em seguida, no lugar da corPrimaria e do opacity, escreva hexToRgba(props.cor, '0.6') ou
+hexToRgba(time.cor, '0.6') dependendo dos parâmetros da função Time.
+
+
+Retornando ao navegador, podemos ver que tanto a cor de fundo quanto a cor dos componentes mudam de acordo com
+as cores que selecionamos no botão. E é só o fundo que está alterando a opacidade, como a gente queria.
+
+
+
+---------------- Curiosidade: Como que isso está acontecendo? Por que precisamos resolver dessa forma? ------------------------
+
+
+Vamos entender a diferença entre IMPERATIVIDADE, DECLARATIVIDADE e REATIVIDADE.
+
+A Imperatividade é a forma na qual o JavaScript funciona.
+Inspecione um dos cards dos colaboradores no navegador. Vemos que ele possui uma <div> com a classe "cabecalho".
+Na aba Console, digite
+
+document.querySelector('.cabecalho')
+
+Pode ser que ele retorne o banner, que é o primeiro da lista a ter a classe cabecalho. Nesse caso,
+precisaremos especificar um pouco mais. Acrescente a tag do pai, que é uma <div> com a classe "colaborador".
+
+document.querySelector('.colaborador').querySelector('.cabecalho')
+
+
+Agora pegue essa mesma seleção e acrescente .style.backgroundColor = 'algumaCor'.
+Fazendo isso, a cor do card do colaborador selecionado mudará para a cor desejada.
+
+document.querySelector('.colaborador').querySelector('.cabecalho').style.backgroundColor = 'green'
+
+
+
+(Para entendermos a questão da imperatividade, estamos pegando o .'colaborador', depois o '.cabecalho' no documento e,
+dentro do estilo deste, pedimos que mude o .backgroundColor para 'green'.
+De forma imperativa, damos uma "ordem" para que esse aspecto seja mudado.
+
+Porém, não fazemos a mesma coisa com a função mudarCorDoTime() no App.js, pois só a passamos no documento e o React
+faz o restante por "debaixo dos panos". E isso é a forma declarativa para que façamos a mudança de cor.
+
+Ou seja, criamos o State que é o ponto de entrada em que podemos fazer as alterações, e dizemos ao React
+qual é a variável que queremos mudar e o que a função irá mudar.
+Apenas declaramos quem irá utilizar a função, e o React terá o trabalho de realizar a mudança.
+
+Portanto, esta é a diferença entre imperatividade e declaratividade.)
+
+
+(Já para entendermos a diferença entre declaratividade e reatividade, devemos saber que o React utiliza o Virtual DOM.
+O React precisa dele para que consiga ser performático e rápido, pois mudar as cores no HTML do browser seria bem mais lento.
+
+Então o React coloca pontos-chaves que precisamos mudar, e usa o Virtual DOM para alterar somente essas partes.
+Se fizéssemos de forma reativa em que todas as constantes e variáveis mudadas fossem atualizadas, ficaríamos atualizando toda hora,
+o que prejudicaria a performance do navegador.
+
+E por isso ele escolhe só ter partes específicas. E por ele não ser puramente reativo, o React é considerado declarativo
+apesar do nome "React" sugerir esse significado.)

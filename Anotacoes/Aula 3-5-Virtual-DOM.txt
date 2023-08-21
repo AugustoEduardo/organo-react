@@ -1,0 +1,60 @@
+Um pouco de como funciona o Virtual DOM no nosso exemplo.
+
+
+Lembra de quando selecionamos o botão de input, a tal paleta de cores, houve um
+momento em que alteramos as cores desse botão, mas as cores do time e do colaborador
+não mudaram? Isso aconteceu porque não tínhamos o State.
+
+
+(Por "debaixo dos panos" no Virtual DOM, o <input> consegue mudar de cor, mas não altera
+do DOM real porque não estava correspondendo ao State.
+Assim que clicamos no onChange do <input type='color', acontece a mudança de State porque
+o próprio onChange o altera.
+
+O React faz uma diferença entre como o browser estava antes para como estaria depois.
+Lembrando que os componentes são objetos, ele realiza uma comparação de cada um e analisa
+se os valores são iguais ou não.
+
+Estabelecendo essas disparidades entre todos os elementos, consegue entender o que precisa
+ser mudado exatamente no navegador para que não precise mudar tudo de uma vez só.
+
+Depois disso, re-renderiza o browser com essa informação real.
+
+
+Neste esquema, notaremos que, no Virtual DOM, muitas coisas estão acontecendo, mas no
+Browser DOM, a mudança ocorre apenas uma vez exatamente nas partes específicas.
+
+Portanto, num exemplo em que o State muda e depois precisa mudar dois componentes, o Virtual DOM
+envia um comando para o Browser DOM renderizar apenas o que for necessário.)
+
+
+
+Para um exemplo prático, inspecione a cor de um dos cards dos colaboradores. A <div> estará
+selecionada. Agora clique no botão de mudar as cores e vá escolhendo uma cor.
+Perceba que conforme a cor vai se alterando, o navegador destaca quais as partes do código
+estão se atualizando.
+
+Isso acontece porque o React faz um cálculo e percebe que só precisa atualizar essa parte
+específica do State que colocamos para mudar, o que deixa o React bastante rápido.
+
+
+
+(Lembra que os componentes são vistos como objetos no React? O Virtual DOM armazena estes objetos,
+e quando algo muda dentro desta árvore de objetos, o React compara o DOM real com o que
+a gente quer que mude (que a gente chama de candidato) e atualiza apenas o que for mudado!
+
+Vamos ver um exemplo:
+
+Se a gente mudar o input de cor para uma nova cor, o que acontece?
+
+1. O input executa o evento onChange;
+2. O onChange executa a função mudarCor;
+3. O mudarCor executa o setTimes;
+4. O setTimes muda o state;
+5. O React percebe a mudança de state e compara o Virtual DOM com o DOM real, mudando as partes
+necessárias (no caso tudo que está relacionado com time.cor).
+
+
+Neste momento o React tem uma “cópia” da árvore antes do evento e o “candidato”, que é a árvore
+com as mudanças após o evento, e compara o que deve ser atualizado por causa do evento, e
+a partir daí ocorre as mudanças!)
