@@ -1,0 +1,121 @@
+Abra o App.js e veja a função mudarcorDoTime().
+Ali, ele diz "if (time.nome === nome)", que valida se "time"
+corresponde ao parâmetro "nome" para conseguirmos mudar a cor.
+
+Mas "nome" não é um atributo muito único, pois se adicionarmos um novo time no futuro,
+poderemos ter problemas. Para resolvermos essa questão, vamos precisar pegar um pacote
+externo, pois o React é uma biblioteca e não serve para essa questão.
+
+O pacote se chama UUID. Ele cria id's, identificações que nunca irão se repetir (igual
+aos id's do HTML). Procure no navegador por "npm uuid". Deve ser o primeiro resultado.
+
+https://www.npmjs.com/package/uuid
+
+
+Lá no canto direito, vemos como se faz a instalação. Digite "npm i uuid" no Terminal, sem aspas.
+Na mesma página, veja na seção de Quickstart como fazer a importação. Já entendeu, né?
+Escreva import { v4 as uuidv4 } from 'uuid'; no início do App.js.
+
+Tivemos que colocar chaves porque o v4 não é o export default do uuid. Se quiser explorar mais,
+apague o conteúdo de dentro das chaves e aperte CTRL + Espaço para ver as opções. Temos sparse,
+stringify, v1, v3, v4, v5...
+Além disso, repare que tivemos que usar "as uuidv4". Quem já mexeu com outras linguagens de
+programação deve ter se deparado com as "aliases", os "apelidos". O nome do import que queremos
+é v4, mas o site recomenda que apelidemos de uuidv4. Se quiser, pode apelidar do nome que quiser.
+Pode escrever {v4 as melancia}, {v4 as balacobaco}, qualquer nome. Mas pra manter o padrão e evitar
+bagunças, faremos da forma que o site pediu.
+
+
+----------------------------------------------------------------------------------------------------
+Antes de prosseguir, recomendo que deixe alguns colaboradores pré-visualizados no seu programa caso
+não o tenha feito. Vai facilitar na próxima etapa. Para isso, crie uma "const inicial" contendo
+nome, cargo, imagem e time de cada colaborador. Pode até usar suas informações e repetir até que
+todos os times sejam preenchidos. Exemplo:
+
+const inicial = [
+    {
+        nome: 'Nome Sobrenome'
+        cargo: 'Funcionario'
+        imagem: http://linkdealgumaimagem.png
+        time: times[0].nome
+    },
+    {
+        nome: 'Nome Sobrenome'
+        cargo: 'Estudante'
+        imagem: http://linkdealgumaimagem.png
+        time: times[1].nome
+    }
+]
+
+O "inicial" também precisa estar no useState dos colaboradores.
+
+const [colaboradores, setColaboradores] = useState(inicial)
+----------------------------------------------------------------------------------------------------
+
+
+Tendo o uuidv4 importado, acrescente "id: uuidv4()" em todos os membros do const [times, setTimes]
+assim como na const inicial.
+Se ficar muito trabalhoso, pratique com os atalhos do CTRL + D.
+
+
+const [times,setTimes] = useState([
+
+    {
+      id: uuidv4(),
+      nome: 'Programação',
+      cor: '#D9F7E9'
+    },
+    ........
+])
+
+const inicial = [
+    {
+        id: uuidv4(),
+        nome: 'Nome Sobrenome'
+        cargo: 'Funcionario'
+        imagem: http://linkdealgumaimagem.png
+        time: times[0].nome
+    },
+    ........
+]
+
+
+Na função mudarcorDoTime, como não queremos mais usar "nome" como parâmetro, troque
+o que estiver escrito nome por "id".
+Em seguida, no index.js da pasta Time, substitua o "nome" dentro do <input onChange> por "id".
+
+
+Ótimo, ainda conseguimos alterar as cores com o botão do index no navegador.
+(Se por algum motivo não conseguir alterar as cores, desfaça as alterações do parágrafo anterior,
+deixando as partes do código com "nome" novamente. Tentarei corrigir isso futuramente.)
+
+
+
+--------------------- Curiosidades -------------------------
+
+Por que não conseguimos colocar o id no time pra depois passar do time para o state? Por que
+precisamos criar o state lá no App e "passar pra baixo"?
+
+(Alguns outros frameworks, como Angular por exemplo, utilizam o *Two Way Data Binding*, ou
+"ligação de mão-dupla entre dados", que literalmente significa a troca de informação entre componentes,
+também chamados de módulos.
+
+Ou seja, tanto o componente-pai quanto o componente-filho conseguem enviar informações entre eles.
+
+
+Só que o React não é *Two Way Data Binding*. Ele é *One Way Data Binding*!
+Ele só envia do pai para o filho.
+
+Isso funciona porque o React é declarativo, ou seja, ele espera que o State mude para liberar as
+informações adiante ou "para baixo".
+Em um fluxo de dados de componente-filho para pai, ou seja, sempre que uma alteração acontecesse em
+qualquer parte do código, como um colaborador alterando o formulário por exemplo, o React precisaria
+lidar com toda a árvore do Virtual DOM para encontrar a mudança, o que geraria um enorme problema de performance.
+
+Por ser One Way Data Binding, sempre que alteramos um componente, o React sabe que só precisa verificar
+este componente ou os que estão abaixo deste. Desta forma é bem mais eficiente. E isso torna a biblioteca tão popular.
+
+
+Agora que entendemos o porquê de criarmos States, trocarmos informações via props, de o React ser uma biblioteca,
+ser declarativo e one way data binding, além de como geramos novas features e "blocos de Lego", sabemos o bastante
+para terminarmos a funcionalidade de "deletar" e colocarmos os conhecimentos em prática.)
