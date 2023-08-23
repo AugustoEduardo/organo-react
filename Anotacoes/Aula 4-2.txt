@@ -81,13 +81,11 @@ const inicial = [
 
 
 Na função mudarcorDoTime, como não queremos mais usar "nome" como parâmetro, troque
-o que estiver escrito nome por "id".
+o que estiver escrito nome por "id". E no times.map mais abaixo, escreva id={time.id}.
 Em seguida, no index.js da pasta Time, substitua o "nome" dentro do <input onChange> por "id".
 
 
 Ótimo, ainda conseguimos alterar as cores com o botão do index no navegador.
-(Se por algum motivo não conseguir alterar as cores, desfaça as alterações do parágrafo anterior,
-deixando as partes do código com "nome" novamente. Tentarei corrigir isso futuramente.)
 
 
 

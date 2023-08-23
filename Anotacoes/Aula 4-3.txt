@@ -1,0 +1,137 @@
+OBS: Na anotação anterior (4-2), comentei que havia a possibilidade de não
+conseguir alterar as cores quando renomeamos alguns nomes para "id". Faltou
+acrescentar que precisa também colocar id={time.id} no <Time> para que isto
+funcione.
+Por fim, para que o botão de deletar funcione corretamente, é necessário ir
+ao index.js da pasta Time e colocar id={colaborador.id} no return <Colaborador/>.
+
+
+
+Agora que fizemos a validação com os id's e completamos a tarefa de mudar as
+cores dos times e colaboradores, começaremos a trabalhar na feature de deletá-los.
+
+A primeira coisa que precisamos saber é se 'colaboradores' é um State, afinal essa
+é a forma de alterarmos algo no navegador. Podemos ver que eles são States quando
+nos deparamos com "const [colaboradores, setColaboradores] = useState(inicial);".
+
+(Em seguida, temos a a função de deletarColaborador() que utiliza apenas o console.log()
+por enquanto, e mais adiante, temos o retorno da <div> contendo <Time> em que passamos os colaboradores
+e o id.
+
+Abriremos o index.js de Time e veremos que estamos pegando colaboradores.map() e estamos passando <Colaborador>
+para baixo. Este, por sinal, está passando o nome, o cargo, a imagem e outras propriedades, incluindo o id.
+
+Com isso, podemos ir ao componente e passar esse id para a função que queremos,
+pois precisamos dela para deletar o colaborador ou colaboradora.)
+
+
+Vamos ao index.js da pasta Colaborador. O <AiFillCloseCircle> é nosso botão de deletar.
+Veja que no onClick a gente só está passando o aoDeletar. Da forma como está escrito, estamos passando
+todos os parâmetros que o onClick pode buscar. E se você lembra, no <input type=color> de algumas
+aulas atrás, o onChange sempre recebe um evento.
+
+Fazemos um teste. No App.js, na função deletarColaborador(), colocaremos um parâmetro e pediremos
+para o console.log exibir tanto uma mensagem qualquer quanto esse parâmetro.
+
+
+  function deletarColaborador(prop) {
+    console.log("Apagando colaborador ", prop)
+  }
+
+
+Clique no botão de deletar no navegador, com o console aberto. Por causa do parâmetro, ele está
+exibindo o SyntheticBaseEvent, que é o onClick do botão, com uma série de características.
+Inclusive, se você clicar no "target" (que usamos no <input type=color> para poder pegar o valor)
+e passar o mouse por cima dessa propriedade, ele vai destacar o ícone do botão clicado na página.
+
+
+Com isso, estamos recebendo o evento. Mas não queremos o evento. Queremos o id.
+No index.js do Colaborador, vamos pedir para o onClick retornar o id do colaborador.
+
+
+<AiFillCloseCircle
+size={25}
+className="deletar"
+onClick={props.aoDeletar(props.id)}    // Assumindo que o parâmetro da função Colaborador é "props"
+
+
+Se atualizar a página e abrir o console, vai ver que ele está executando todos os botões de uma vez só!
+Não é bem o que a gente queria...
+
+Volte à função deletarColaborador, passe "id" como parâmetro e faça um filter dos colaboradores cujos id's
+sejam diferentes do id que a gente passou. Esse filter tem que ter uma arrow function e precisa ser "setado".
+
+
+  function deletarColaborador(id) {
+    setColaboradores(colaboradores.filter(colaborador => colaborador.id !== id));
+  }
+
+
+
+[Para relembrar: o que o Filter faz nada mais é do que criar um novo array com todos os elementos do conjunto
+que passaram no teste. Ou seja, o botão de deletar não vai exatamente apagar um colaborador. Ele vai exibir novamente
+todos os itens de um grupo (no caso, os componentes dos times) menos aqueles que satisfazem a condição estabelecida.
+
+Em nosso exemplo, o setColaboradores() está "criando um novo array com todos os elementos que passaram no teste
+implementado pela função filter()", logo "deletando" o colaborador que possui o id passado no parâmetro da função
+deletarColaborador.
+
+
+E como ele sabe que o id do parâmetro é o que a gente quer deletar?
+Lembra que anteriormente o console mostrava várias características do botão, sendo uma delas o "target"?
+Então, clicando no botão de deletar, ele pega o id daquele componente. Com o filter, ele sabe que deve criar um
+novo array com todos os componentes e não pode exibir o componente com o id registrado pelo toque no botão.]
+
+
+
+
+Retornando à página, vemos que nossos colaboradores sumiram!
+
+(Isso aconteceu porque estamos executando a função aoDeletar() no onClick.
+
+Então, sempre que o React estiver renderizando e vendo os objetos, ao invés de dizermos que o onClick
+é uma função anônima que executa algo, falamos que já é a resposta da função que executamos.
+
+Como já executa a função e já deleta, nem teremos o onClick ainda.)
+
+
+Para que o React entenda que não é uma função executada, colocamos uma arrow function que executa uma função.
+Isso dará ao onClick uma função que será executada no futuro, e não uma função executada de imediato.
+
+
+<AiFillCloseCircle
+size={25}
+className="deletar"
+onClick={() => props.aoDeletar(props.id)}
+
+
+Em outras palavras, da forma como eu havia feito anteriormente (sem a arrow function), o componente está
+executando a função de deletar assim que é renderizada. Com o arrow function, estamos dizendo que o ato
+de deletar só deve ocorrer quando clicamos no botão, ao invés de deletar os componentes assim que a página
+é carregada!
+
+
+
+Agora nosso botão funciona perfeitamente e podemos deletar os componentes quando quisermos. Inclusive, ao
+deletar todos os componentes de um time, a página deixa de exibir os times vazios, conforme foi configurado
+no index.js da pasta Time.
+
+
+
+
+
+
+
+[Forma alternativa de deletar o componente sem a arrow function:]
+
+const Colaborador = (props) => {
+
+    function deletarColaborador() {
+      props.aoDeletar(props.id);
+    }
+
+    return (
+      <AiFillCloseCircle size={25} className="deletar" onClick={deletarColaborador} />
+
+    )
+}

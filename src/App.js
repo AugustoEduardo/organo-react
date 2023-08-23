@@ -100,14 +100,14 @@ function App() {
 
   const [colaboradores, setColaboradores] = useState(inicial);
 
-  function deletarColaborador() {
-    console.log("Apagando colaborador")
+  function deletarColaborador(id) {
+    setColaboradores(colaboradores.filter(colaborador => colaborador.id !== id));
   }
   
 
-  function mudarcorDoTime (cor, nome){
+  function mudarcorDoTime (cor, id){
     setTimes(times.map(time => {
-      if (time.nome === nome) {
+      if (time.id === id) {
         time.cor = cor;
       }
       return time;
@@ -125,6 +125,7 @@ function App() {
       {times.map(time => <Time
         mudarCor = {mudarcorDoTime}
         key={time.nome}
+        id={time.id}
         nome={time.nome}
         cor={time.cor}
         colaboradores={colaboradores.filter (colaborador => colaborador.time === time.nome)}
