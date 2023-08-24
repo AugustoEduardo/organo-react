@@ -1,0 +1,130 @@
+Nesta etapa, iremos criar um segundo formulário para adicionar novos times.
+Quando um time novo é cadastrado, ele deverá aparecer na Lista Suspensa do formulário
+original.
+
+Lá no index.js do Formulario, copiaremos tudo o que está dentro de <form onSubmit> e colaremos
+numa linha abaixo (dica: use o atalho do VSCode SHIFT + ALT + seta baixo). Não iremos precisar
+da ListaSuspensa e da imagem no novo formulário, então pode apagá-los.
+Agora renomeie o título <h2>, informando que é para criar um novo time.
+
+
+(No componente <CampoTexto> recebemos o obrigatorio que é um booleano, ou seja, é verdadeiro ou falso.
+Quando passamos "true" como propriedade, não precisamos escrever que é igual a {true}, basta deixarmos
+como obrigatorio apenas.
+Se preferir, pode manter o obrigatorio={true} só para ficar mais fácil de outra pessoa entender.)
+
+
+Como estamos querendo adicionar um novo time e não um cadastro de colaborador, podemos renomear a label
+e o placeholder dos Campos de Texto, assim como o botão logo abaixo.
+
+Agora que inserimos um novo formulário, precisamos criar os States correspondentes ao nome do time e à cor.
+No topo do código, crie dois novos states de forma semelhante aos quatro primeiro states.
+Em seguida, nos <CampoTexto> recém-criados, no aoAlterar, mude os "sets" para os states que acabou de criar.
+Por fim, altere os "valor" para nomeTime e corTime, respectivamente.
+
+
+const [nomeTime, setNomeTime] = useState("");
+const [corTime, setCorTime] = useState("");
+
+
+<form onSubmit={aoSalvar}>
+    <h2>Preencha os dados para criar um novo time.</h2>
+        <CampoTexto
+                obrigatorio={true}
+                label="Time"
+                placeholder="Digite o nome do time"
+                valor={nomeTime}
+                aoAlterar={valor => setNomeTime(valor)}
+        />
+        <CampoTexto
+                obrigatorio={true}
+                label="Cor"
+                placeholder="Digite a cor do time"
+                valor={corTime}
+                aoAlterar={valor => setCorTime(valor)}
+        />
+            <Botao>
+                Criar um Novo Time
+            </Botao>
+</form>
+
+
+
+
+(Agora só falta trabalharmos com o onSubmit. Como já conhecemos o one way data binding do React
+e precisamos alterar o time dentro de App, iremos até o App.js para criarmos uma função que cria
+o time e depois passá-la para o onSubmit do formulário.)
+
+No App.js, no <Formulario> ao final, vou adicionar uma nova propriedade chamada "cadastrarTime", que
+recebe uma função de mesmo nome. Criaremos essa função agora.
+
+Tal função precisa receber dois parâmetros: nome e cor. Podemos fazer assim ou podemos passar um único
+objeto que tenha esses parâmetros. Como a gente já fez uma função com dois parâmetros chamada mudarcorDoTime,
+faremos diferente e passaremos um único objeto. Chamamos de "novoTime".
+
+Na função passaremos um setTimes(), onde teremos um array que terá um "spread de times" (...times) (isto é,
+colocarei todos os times dentro do setTimes de novo), um spread do novoTime.
+Não esqueça que o spread desse novoTime precisa estar entre chaves porque é um objeto.
+O primeiro elemento é um array, que vai ser um array de times, e agora ele vai ser um novo time.
+E dentro das chaves, logo após o spread do novoTime, passaremos o id: uuidv4(), onde os parênteses indicam
+que ele será executado.
+
+
+  function cadastrarTime (novoTime) {
+    setTimes([...times, {...novoTime, id: uuidv4()}])
+  }
+
+
+  return (
+    <div className="App">
+      <Banner />
+      <Formulario
+      cadastrarTime={cadastrarTime}
+      times={times.map (time => time.nome)}
+
+      .......
+
+  )
+
+
+Volte ao Formulario. No const Formulario, acrescente o novo parâmetro: cadastrarTime (não é necessário se estiver
+usando props para tudo). No <form onSubmit>, remova o aoSalvar, crie uma arrow function com um evento, onde
+impediremos o comportamento padrão dele de recarregar a página. Daí, escreva a função "cadastrarTime", no qual
+receberá, entre chaves, o nomeTime e o corTime.
+
+
+<form onSubmit={(evento) = >
+    evento.preventDefault()
+    cadastrarTime({nome: nomeTime, cor: corTime})
+}
+
+
+
+OBS: Se estiver usando props como parâmetro único do const Formulario, é possível que o programa dê erro mesmo que
+vá colocar props.cadastrarTime no exemplo acima. Nesse caso, é aconselhável criar uma constante nova com arrow function
+que receba essas propriedades. Tendo como base o "aoSalvar", a função ficaria assim:
+
+const aoSalvarTime = (evento) => {
+    evento.preventDefault()
+    props.cadastrarTime({
+        nome: nomeTime,
+        cor: corTime
+    })
+
+    setNomeTime('')
+    setCorTime('')    // Apagando os nomes preenchidos no formulário assim que o botão é pressionado
+}
+
+<form onSubmit = {aoSalvarTime}
+
+
+Com isto, criamos um formulário que adiciona um time e cor à sua escolha. Quando cadastrado, o time não irá aparecer na
+página porque havíamos configurado dela não exibir times vazios. Porém ele estará visível na ListaSuspensa do formulário
+original. Basta acrescentar um colaborador a esse novo time e poderá vê-lo.
+Lembre-se de usar hexadecimal ao adicionar a cor do novo time.
+
+
+(Também entendemos que, no formulário da direita, enviamos uma informação para a App que mudou o time, o qual alterou
+o select do formulário da esquerda, pois passou a informação "para baixo".
+
+Desta forma, observamos o one way data binding funcionando corretamente.)
