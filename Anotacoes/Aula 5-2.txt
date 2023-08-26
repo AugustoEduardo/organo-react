@@ -1,0 +1,160 @@
+Achou que os formulários ficaram muito colados? Pois é, agora a gente vai mexer no CSS deles
+para dar um espaçamento.
+
+No Formulario.css, o display: flex deixa os dois formulários na mesma linha, mas não há um
+espaçamento entre eles. O próprio flex resolve isso através da propriedade "gap".
+Coloque um gap: 20px no .formulario para criar esse espaço (pode aumentar o tamanho se preferir).
+
+(.formulario é a classe da <section>. Seu arquivo pode estar com um outro nome)
+
+
+Por falar em flexbox, nós não damos nenhuma responsividade para nosso projeto, não é mesmo?
+Os formulários ficam esmagados se a gente diminuir a tela. O flex-wrap: wrap pode ajudar com isso.
+
+Mesmo assim, quando estamos com o console aberto, os dois ficam um em cima do outro embora haja
+espaço suficiente para ficarem lado a lado. Isto porque a classe do <form> está com max-width: 80%.
+É melhor apagá-lo e usar "flex: 1" para que o formulário tenha "direito" a um espaço flex. Mas como
+são dois formulários, cada um vai ocupar 50% da página.
+
+O problema do flex: 1 é que os dois juntos ocupam a tela toda. Seria melhor deixar um espaço livre nas
+laterais. Na mesma classe onde temos o display flex, ponha uma margin de 80px 50px.
+
+
+.formulario {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 80px 50px;
+}
+
+.formulario form {
+    flex: 1;
+
+    /* código omitido */
+
+}
+
+
+Nesta próxima etapa, vamos deixar o segundo formulário mais amigável, de forma que o campo da cor
+tenha uma paleta de cores igual como está nos times. Não concorda que seria bem chato ter que digitar
+uma cor no formato decimal toda vez que for adicionar um novo time?
+Para isso, teremos que refatorar o campo que só aceita texto.
+
+(É muito importante que aprendamos a fazer essa refatoração no React, pois estamos constantemente criando
+componentes.
+
+Geramos um com um objetivo específico, como no caso do campo que fizemos no curso anterior que aceita
+somente texto, mas agora faremos com que receba cor também.
+
+Quando trabalhamos na criação de um projeto, eventualmente teremos a necessidade de refatorar.
+Fazer isso de forma a não "quebrar" o código é muito importante, então iremos aprender.)
+
+
+Renomearemos tudo o que estiver escrito "CampoTexto" para "Campo". Comece pela pasta:
+CampoTexto será apenas Campo e CampoTexto.css será Campo. Se estiver usando o VSCode, deve aparecer um
+alerta ao renomear a pasta: clique em Sim.
+
+No index.js do Formulario, renomeie o import e todas as tags <CampoTexto> presentes no arquivo.
+No index.js da pasta recém-renomeada Campo, mude os nomes do import, classe da <div>, função e do "export default".
+Certifique-se de mudar os nomes das classes no Campo.css
+
+
+(Agora, precisaremos dizer ao componente que aceita inputs do tipo texto e do tipo cor.
+
+No const Campo, criaremos uma nova propriedade chamada "type".
+Em <input>, diremos que o type é igual ao type que recebemos via props. Porém, se estivermos fazendo uma refatoração
+e tivermos um componente do tipo 'text' sendo já utilizado em outros lugares e mudarmos para outro diferente,
+poderemos ter problemas nesses outros.
+
+Portanto, se dissermos que o type padrão é igual a 'text', não teremos essa questão, pois na forma como está,
+é exatamente igual ao que estava antes.
+Mas agora temos uma nova propriedade type e, se os novos componentes que utilizarmos tiverem um tipo diferente,
+só irá alterar esta parte e não os outros componentes que fizemos.
+
+Então essa é uma forma de fazermos uma refatoração eficiente que não causa problemas no código.)
+
+
+import './Campo.css'
+
+const Campo = ({ type = 'text', label, placeholder, valor, aoAlterado, obrigatorio = false }) => {
+    return (
+      <div className='campo'>
+        <label>{label}</label>
+        <input
+        type={type}
+        value={valor}
+        onChange={evento => aoAlterado(evento.target.value)}
+        required={obrigatorio}
+        placeholder={placeholder}/> 
+      </div>
+    )
+}
+
+export default Campo
+
+
+(Se estiver usando a propriedade única props: basta colocar <input type={props.type}/>
+Caso o código dê problema com futuras alterações como mencionado acima, pode ser que a origem do problema esteja aqui...)
+
+
+No Formulario, no <Campo> destinado à cor do time, crie um type='color'. Deve ser exatamente 'color' porque é o mesmo tipo do <input>.
+
+
+(Então tudo o que não tiver type escrito, como no caso do primeiro <Campo> do segundo <form>, será aceito 'text' por padrão,
+já que escrevemos assim em const Campo no index.js de "Campo".
+Mas no segundo <Campo> do segundo <form> aceitará cor, pois dissemos que type='color'.)
+
+
+Conseguimos colocar uma paleta de cores no campo do formulário, mas no navegador ele ficou pequeno demais. Mexeremos nisso no css.
+
+(No campo.css, notaremos que o padding: está bem grande com 24px, o que é um problema porque a parte de escolher a cor precisa ser maior.
+
+No index.js, alteraremos o 'campo' em <div>, pois é este que possui o padding. Adicionaremos o tipo que estamos usando.
+Para isso, colocaremos dois classNames, em que o segundo dependerá da propriedade type que estamos utilizando.
+Então variável type do JavaScript usará crase entre chaves, conhecida como template string. Após campo, escreveremos campo-${} com type.)
+
+
+import './Campo.css'
+
+const Campo = ({ type = 'text', label, placeholder, valor, aoAlterado, obrigatorio = false }) => {
+    return (
+      <div className={`campo campo-${type}`}>
+        <label>{label}</label>
+        <input
+          type={type}
+          value={valor}
+          onChange={evento => aoAlterado(evento.target.value)}
+          required={obrigatorio}
+          placeholder={placeholder}
+        /> 
+      </div>
+    )
+}
+
+export default Campo
+
+
+(Se estiver com props: <div className={`campo campo-${props.type}`}>)
+
+
+
+Vá ao navegador e inspecione a paleta de cores do formulário. Vai perceber que ele é um <input>, mas a <div> de cima
+é de classe "campo-color", enquanto o de cima é "campo-text". Se estiver escrito "campo-undefined" na <div> mais alta,
+é porque você não especificou o type='text' no const Campo e/ou provavelmente está usando props. Mas o código deve
+funcionar normalmente.
+
+Tendo isso em mente, volte ao Campo.css e adicione .campo-color input com padding de 5px e 24px, pois o problema
+não é o padding horizontal, e sim o vertical.
+Se o campo continuar pequeno, adicione uma altura (height) de 40px.
+
+
+.campo-color input {
+    padding: 5px 24px;
+    height: 40px;
+}
+
+
+Caso ainda esteja com o Console aberto, veja como o value do <input> muda de valor conforme escolhemos a cor.
+
+Com isso, deixamos nosso segundo formulário muito mais amigável e funcionando perfeitamente.
