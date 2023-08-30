@@ -1,0 +1,163 @@
+NOTA DO AUTOR:
+
+Não está sendo possível executar esta última etapa da aplicação. O ícone de favoritar colaborador
+estará presente na versão final, porém não será possível alterar seu estado de forma que um colaborador
+seja favoritado.
+
+Além disso, uma mensagem de erro é exibida no console quando clicamos no ícone e quando tentamos alterar
+as cores dos times. Por alguma razão, esta mensagem de erro deixa de ser exibida no momento em que mudamos
+as cores do novo formulário.
+O resto do programa parece funcionar normalmente.
+
+Por se tratar de uma etapa extra, qualquer usuário que esteja usando este tutorial como aprendizado pode
+ignorar esta última aula.
+
+----------------------------------------------------------------------------------------------------------------
+
+
+Encerraremos nosso programa com o botão de Favoritar Colaborador.
+
+Na pasta Colaborador, criaremos uma nova <div> abaixo do h5 com a classe "favoritar".
+Para dar uma ideia básica, vamos colocar um ternário: se o colaborador for o favorito,
+ele será classificado como favorito. Caso contrário, ele será "não favorito".
+
+
+            <div className="rodape">
+                <h4>{colaborador.nome}</h4>
+                <h5>{colaborador.cargo}</h5>
+                <div className="favoritar">
+                    {colaborador.favorito ? "favorito" : "nao favorito"}
+                </div>
+            </div>
+
+
+(Troque "colaborador" por "props" se estiver usando props como propriedade única.)
+
+Voltando ao navegador, vemos que todos os colaboradores estão como "nao favorito" porque não temos o
+"favorito", então fica como undefined no App.js.
+Vá até esse arquivo e acrescente "favorito: false" em todos os colaboradores da const inicial.
+
+const inicial = [
+    {
+      id: uuidv4(),
+      favorito: false,
+      nome: 'Meu Nome',
+      cargo: 'Aluno',
+      imagem: 'https://github.com/meuperfildogithub.png',
+      time: times[0].nome
+    },
+    
+// código omitido
+
+]
+
+
+Agora criaremos uma funcionalidade que vai favoritar o membro do time quando é clicado.
+Seria legal termos um ícone para isso, né? Então iremos a uma página mencionada anteriormente, o React Icons.
+
+https://react-icons.github.io/react-icons/
+
+Pegue o ícone que achar melhor. É uma boa ideia também pegar um ícone "vazio" para colocar nos não-favoritos.
+Daí é só fazer a importação no index.js do Colaborador, como foi feito com o botão de deletar.
+
+A propósito, se os seus ícones e o botão de deletar começarem com as mesmas duas letras (exemplo: "ai"), não será necessário
+fazer outro import. Basta colocar um do lado do outro no mesmo import, separando-os por vírgulas.
+
+Tendo os ícones importados, troque o "favorito" e "nao favorito" pelos nomes dos ícones, em tag.
+Eu peguei ícones de estrela, logo o meu ficará assim:
+
+
+import { AiFillCloseCircle, AiFillStar, AiOutlineStar } from 'react-icons/ai' 
+
+<div className="favoritar">
+    {props.favorito ? <AiFillStar/> : <AiOutlineStar/>}
+</div>
+
+
+Pode ser que o seu ícone esteja muito colado ao cargo do colaborador. Se for o caso, vá no Colaborador.css, acrescente
+a classe ".favoritar" e dê um margin-top.
+No index, queremos que algo aconteça quando clicamos no ícone de favoritar. Ou seja, nas tags dos ícones, criamos um
+onClick que receberá a propriedade aoFavoritar (ou props.aoFavoritar). Acrescente essa propriedade também no const Colaborador.
+
+<div className="favoritar">
+    {props.favorito ? <AiFillStar onClick={props.aoFavoritar}/> : <AiOutlineStar onClick={props.aoFavoritar}/>
+    }
+</div>
+
+
+Temos que ir agora na pasta Time, já que ela passa informações ao Colaborador. Acrecente um aoFavoritar={aoFavoritar}
+no final do return <Colaborador>, não esquecendo de colocá-la como propriedade da const Time.
+
+E como quem passa props para Time é o App, vamos ao App.js.
+Criaremos uma nova função chamada resolverFavorito() que receberá um id, pois precisaremos tanto "favoritar" quanto "desfavoritar".
+Aplicaremos o setColaboradores recebendo colaboradores.map, que por sua vez receberá "colaborador" com uma arrow function.
+Dentro da arrow function, passaremos uma condicional que vai "ligar ou desligar" o colaborador favorito se a id do colaborador
+for a mesma do parâmetro (um pouco semelhante à função mudarcorDoTime). Não precisa de chaves após o "if".
+Retorne o colaborador ao final.
+
+Em outras palavras, quando clicarmos no ícone, o colaborador será o favorito (ligado). Se clicarmos de novo, ele deixará de ser
+favorito (desligado).
+Depois, vá ao <Time> no final do arquivo e acrescente o aoFavoritar={resolverFavorito}.
+
+
+  function resolverFavorito(id) {
+    setColaboradores(colaboradores.map(colaborador => {
+      if (colaborador.id === id) colaborador.favorito = !colaborador.favorito
+      return colaborador;
+    }))
+  }
+
+
+
+      {times.map(time => <Time
+        aoFavoritar = {resolverFavorito}
+        mudarCor = {mudarcorDoTime}
+        key={time.nome}
+        id={time.id}
+        nome={time.nome}
+        cor={time.cor}
+        colaboradores={colaboradores.filter (colaborador => colaborador.time === time.nome)}
+        aoDeletar={deletarColaborador}
+        />)}
+
+
+
+(Porém, ainda não estamos passando o id no "Colaborador". Estamos colocando aoFavoritar direto no onClick, mas não passamos.)
+
+Seguinte, já que a gente tem que colocar aoFavoritar em mais de um local, vamos criar uma função dentro do componente Colaborador,
+onde essa função será recebida pelos dois botões. Fazemos isso para evitar de ter que alterar alguma coisa nos ícones. Em vez de
+mudar as duas linhas de código (e se quisermos adicionar mais botões), mudamos todas as suas propriedades numa função.
+
+Essa função vai executar o aoFavoritar e receberá o colaborador.id (ou props.id).
+
+    function favoritar() {
+        props.aoFavoritar(props.id)
+    }
+
+
+Da mesma forma que o botão de deletar, quero aumentar o tamanho dos ícones.
+Mas peraí, os ícones estarão com a mesma propriedade "size" e "onClick". Então, conforme fizemos com a função "favoritar",
+criaremos uma constante que tenha essas adições: o tamanho e a chamada da função favoritar quando ele é clicado.
+
+    const propsFavorito = {
+        size: 25,
+        onClick: favoritar
+    }
+
+
+Por fim, basta passar o propsFavorito nos dois ícones com tags. Só que aqui a gente tem que fazer de forma que ele pegue
+todas as propriedades desse objeto. Passar tudo como prop. Fazemos isso através do spread com reticências e chaves.
+
+E pra ficar legal, quero deixar que meu ícone tenha uma cor quando for clicado e favoritado (deixar o ícone de coração
+como vermelho ou o ícone de estrela como amarelo, por exemplo). Então no ícone favoritado, colocaremos color='nomedacor'.
+
+
+<div className='favoritar'>
+    {colaborador.favorito
+        ? <AiFillStar {...propsFavorito color='yellow'} />
+        : <AiOutlineStar {...propsFavorito} />
+    }
+</div>
+
+
+Pronto, seu ícone deve estar clicável e o colaborador pode ser (des)favoritado quando quiser.

@@ -49,6 +49,7 @@ function App() {
   const inicial = [
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'EDUARDO AUGUSTO',
       cargo: 'Aluno',
       imagem: 'https://github.com/augustoeduardo.png',
@@ -56,6 +57,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'EDUARDO AUGUSTO',
       cargo: 'Aluno',
       imagem: 'https://github.com/augustoeduardo.png',
@@ -63,6 +65,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'EDUARDO AUGUSTO',
       cargo: 'Aluno',
       imagem: 'https://github.com/augustoeduardo.png',
@@ -70,6 +73,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'EDUARDO AUGUSTO',
       cargo: 'Aluno',
       imagem: 'https://github.com/augustoeduardo.png',
@@ -77,6 +81,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'EDUARDO AUGUSTO',
       cargo: 'Aluno',
       imagem: 'https://github.com/augustoeduardo.png',
@@ -84,6 +89,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'EDUARDO AUGUSTO',
       cargo: 'Aluno',
       imagem: 'https://github.com/augustoeduardo.png',
@@ -91,6 +97,7 @@ function App() {
     },
     {
       id: uuidv4(),
+      favorito: false,
       nome: 'EDUARDO AUGUSTO',
       cargo: 'Aluno',
       imagem: 'https://github.com/augustoeduardo.png',
@@ -103,7 +110,15 @@ function App() {
   function deletarColaborador(id) {
     setColaboradores(colaboradores.filter(colaborador => colaborador.id !== id));
   }
-  
+
+  function resolverFavorito(id) {
+    setColaboradores(colaboradores.map(colaborador => {
+      if (colaborador.id === id) {
+        colaborador.favorito = !colaborador.favorito
+      }
+      return colaborador;
+    }))
+  }
 
   function mudarcorDoTime (cor, id){
     setTimes(times.map(time => {
@@ -130,7 +145,8 @@ function App() {
       <h1>Minha Organização</h1>
 
       {times.map(time => <Time
-        mudarCor = {mudarcorDoTime}
+        aoFavoritar={resolverFavorito}
+        mudarCor={mudarcorDoTime}
         key={time.nome}
         id={time.id}
         nome={time.nome}

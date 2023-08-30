@@ -1,4 +1,4 @@
-import { AiFillCloseCircle } from 'react-icons/ai' 
+import { AiFillCloseCircle, AiFillStar, AiOutlineStar } from 'react-icons/ai' 
 import "./Colaborador.css"
 
 const Colaborador = (props) => {
@@ -15,6 +15,12 @@ const Colaborador = (props) => {
             <div className="rodape">
                 <h4>{props.nome}</h4>
                 <h5>{props.cargo}</h5>
+                <div className="favoritar">
+                    {props.favorito
+                    ? <AiFillStar size={25} onClick={props.aoFavoritar}/>
+                    : <AiOutlineStar size={25} onClick={props.aoFavoritar}/>
+                    }
+                </div>
             </div>
         </div>
 

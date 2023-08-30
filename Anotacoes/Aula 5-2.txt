@@ -158,3 +158,30 @@ Se o campo continuar pequeno, adicione uma altura (height) de 40px.
 Caso ainda esteja com o Console aberto, veja como o value do <input> muda de valor conforme escolhemos a cor.
 
 Com isso, deixamos nosso segundo formulário muito mais amigável e funcionando perfeitamente.
+
+
+
+
+---------------Curiosidade------------------
+
+Ao invés de usar as classes modificadoras campo-texto e campo-color para alterar as propriedades de um input,
+você pode alterar direto no css:
+
+.campo input[type=color] {
+    width: 5rem;
+    height: 2.5rem;
+    padding: .25rem 1rem;
+}
+
+Desta forma não se torna necessário adicionar uma classe a mais no HTML e ainda economiza uma linha de código.
+
+
+(Utilizar classes modificadoras é bastante útil quando você precisa aplicar estilos específicos a um determinado tipo
+de input em diferentes partes do seu projeto. Por exemplo, se você tiver vários inputs do tipo color espalhados em
+diferentes páginas, mas quiser estilizá-los de forma diferente em cada página, a utilização das classes modificadoras
+facilita essa personalização.
+
+
+Por outro lado, utilizar a seleção direta do tipo de input no CSS é uma ótima opção quando você precisa aplicar estilos
+iguais a todos os inputs de um determinado tipo em todo o seu projeto. Nesse caso, você economiza linhas de código e torna
+o seu CSS mais conciso e fácil de manter.)
