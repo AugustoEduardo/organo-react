@@ -3,9 +3,6 @@ Este programa foi feito usando o material do curso "React: Desenvolvendo com Jav
 commits de como executar cada etapa e por que seguir por aquele caminho. Disponibilizo este conteúdo gratuitamente para
 auxiliar aqueles que estejam com dificuldades e gostariam de um material de apoio.
 
-Para acessar a parte responsável em como fazer o React do zero, recomenda-se procurar pelo repositório do primeiro curso
-mencionado neste documento, que também se encontra em meu GitHub.
-
 
 Você não pode, em hipótese alguma, aproveitar-se do conteúdo deste material para uso comercial. Tudo o que se encontra aqui
 deve ser usado exclusivamente para fins acadêmicos.
