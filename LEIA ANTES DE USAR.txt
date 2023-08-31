@@ -3,6 +3,9 @@ Este programa foi feito usando o material do curso "React: Desenvolvendo com Jav
 commits de como executar cada etapa e por que seguir por aquele caminho. Disponibilizo este conteúdo gratuitamente para
 auxiliar aqueles que estejam com dificuldades e gostariam de um material de apoio.
 
+A versão final deste programa contém anotações do segundo curso disponíveis. Se quiser ter acesso às anotações do primeiro
+curso, basta ver os commits anteriores ao "Removendo anotações .txt".
+
 
 Você não pode, em hipótese alguma, aproveitar-se do conteúdo deste material para uso comercial. Tudo o que se encontra aqui
 deve ser usado exclusivamente para fins acadêmicos.

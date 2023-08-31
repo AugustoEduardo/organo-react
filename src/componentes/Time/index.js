@@ -16,6 +16,7 @@ const Time = (props) => {
                 <Colaborador
                 key={colaborador.nome}
                 id={colaborador.id}
+                favorito={colaborador.favorito}
                 nome={colaborador.nome}
                 cargo={colaborador.cargo}
                 imagem={colaborador.imagem}

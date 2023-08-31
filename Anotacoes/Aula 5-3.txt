@@ -1,20 +1,3 @@
-NOTA DO AUTOR:
-
-Não está sendo possível executar esta última etapa da aplicação. O ícone de favoritar colaborador
-estará presente na versão final, porém não será possível alterar seu estado de forma que um colaborador
-seja favoritado.
-
-Além disso, uma mensagem de erro é exibida no console quando clicamos no ícone e quando tentamos alterar
-as cores dos times. Por alguma razão, esta mensagem de erro deixa de ser exibida no momento em que mudamos
-as cores do novo formulário.
-O resto do programa parece funcionar normalmente.
-
-Por se tratar de uma etapa extra, qualquer usuário que esteja usando este tutorial como aprendizado pode
-ignorar esta última aula.
-
-----------------------------------------------------------------------------------------------------------------
-
-
 Encerraremos nosso programa com o botão de Favoritar Colaborador.
 
 Na pasta Colaborador, criaremos uma nova <div> abaixo do h5 com a classe "favoritar".
@@ -86,7 +69,26 @@ onClick que receberá a propriedade aoFavoritar (ou props.aoFavoritar). Acrescen
 
 
 Temos que ir agora na pasta Time, já que ela passa informações ao Colaborador. Acrecente um aoFavoritar={aoFavoritar}
-no final do return <Colaborador>, não esquecendo de colocá-la como propriedade da const Time.
+no final do return <Colaborador>, não esquecendo de colocá-la como propriedade da const Time (não necessário caso use "props").
+Ainda no <Colaborador>, temos que adicionar um favorito={colaborador.favorito}, já que o nome "favorito" está sendo chamado
+no props.favorito na pasta Colaborador.
+
+
+                return (
+                <Colaborador
+                key={colaborador.nome}
+                id={colaborador.id}
+                favorito={colaborador.favorito}
+                nome={colaborador.nome}
+                cargo={colaborador.cargo}
+                imagem={colaborador.imagem}
+                corDeFundo={props.cor}
+                aoDeletar={props.aoDeletar}
+                aoFavoritar={props.aoFavoritar}
+            
+                />
+                )
+
 
 E como quem passa props para Time é o App, vamos ao App.js.
 Criaremos uma nova função chamada resolverFavorito() que receberá um id, pois precisaremos tanto "favoritar" quanto "desfavoritar".
