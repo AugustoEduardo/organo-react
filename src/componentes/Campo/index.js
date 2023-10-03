@@ -7,13 +7,13 @@ const Campo = (props) => {
     }
 
     return (
-        <div className={`campo campo-${props.type}`}>
+        <div className={`campo campo-${props.type || 'text'}`}>
             <label>
                 {props.label}
             </label>
 
             <input
-            type={props.type}
+            type={props.type || 'text'}
             value={props.valor}
             onChange={aoDigitar}
             required = {props.obrigatorio}
